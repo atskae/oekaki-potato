@@ -1,5 +1,9 @@
 # Shi-Painter Pro HTML5 Port
 
+## Files
+* `spainter.js` is a copy of `sptr1114/spainter.js`
+* `index.html` is a modified version of `sptr1114/spainter_pro.html`
+
 ## Compile .jar to Javascript
 1. Download Java to Javascript compiler [CheerpJ](https://leaningtech.com/cheerpj/) (the same developers who made the [Chrome extension](https://chrome.google.com/webstore/detail/cheerpj-applet-runner/bbmolahhldcbngedljfadjlognfaaein/related)).
 2. The `spainter.jar` was missing some Manifest file, which `cheerpjfy.py` does not fully account for. So I added a `try: except` statement in the `cheerpjfy.py`:
@@ -19,8 +23,12 @@
 
 which gets the compilation to work... From the first `if` statement `if m == None`, it seems ok if the Manifest file was missing.
 
-3. Run `cheerpjfy.py` on `spainter.jar`. This generates ` spainter.jar.js` (looks pretty human-*un*readable).
+3. Run `cheerpjfy.py` on `spainter.jar`. This generates ` spainter.jar.js` (which looks pretty human *un*readable).
+4. Start a web server with Python:
+```
+python3 -m http.server
+```
+5. Go to `http://localhost:8000/`.
 
-So now I'm not sure how to run this *thing*. I thought serving the `index.html` that I added from a web server was sufficient, but the page just gets stuck in the loading screen...
-
-続く。。。
+## Sources
+* [Getting Started (Cheerpj)](https://github.com/leaningtech/cheerpj-meta/wiki/Getting-Started)
