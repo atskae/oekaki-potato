@@ -3,9 +3,10 @@ Inspired by a snail mail exchange with one of my middle school art heros 🙂
 
 My first goal is to learn how these Oekaki boards worked... and then figure out whether I can re-create some modern version.
 
-## Directory Strucutre
+## Directory Structure
 * `doc/` My own notes
-* `wacpoteto-1.6.7/` contents of the latest version of `wacpoteto` (as of April 2021) from [NineChime](http://www.ninechime.com/products/).
+* `wacpoteto-1.6.7/` modified contents of the latest version of `wacpoteto` (as of April 2021) from [NineChime](http://www.ninechime.com/products/).
+    * `wacpoteto-1.6.7.zip` is the original (unmodified) file from NimeChime.
 
 ## Links
 * [NineChime](http://www.ninechime.com/products/)
