@@ -16,7 +16,8 @@
 ```
 
 (they used tabs... 😑)
-Since got the compilation to work... From the first `if` statement `if m == None`, it seems ok if the Manifest file was missing.
+
+which gets the compilation to work... From the first `if` statement `if m == None`, it seems ok if the Manifest file was missing.
 
 3. Run `cheerpjfy.py` on `spainter.jar`. This generates ` spainter.jar.js` (looks pretty human-*un*readable).
 
