@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC 
+	"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Wacintaki Readme</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+	<style type="text/css" title="Default">
+		html {
+			background-color: #ddd;
+		}
+
+		body {
+			margin: auto;
+			padding: 20px;
+			max-width: 900px;
+			background-color: white;
+			font-family: "Arial", "Helvetica", sans-serif;
+			font-size: 10pt;
+		}
+
+		a:hover {
+			color: red;
+		}
+
+		p {
+			margin-left: 30pt;
+		}
+
+		h1 {
+			/* Page header */
+			padding-left: 15px;
+			background-color: #f5e0ff;
+		}
+
+		h2 {
+			/* Section header */
+			padding-left: 15px;
+			background-color: #e0e0ff;
+		}
+
+		h3 {
+			/* General headers */
+		}
+
+		hr {
+			display: none;
+		}
+		hr.minor {
+			display: block;
+			width: 10%;
+		}
+
+		pre.prompt {
+			/* Simulated CLI prompt */
+			margin-left: 30pt;
+			padding: 1em;
+			background-color: pink;
+		}
+
+		pre.dir {
+			/* Simulated directory (folder) listing */
+			margin-left: 30pt;
+			padding: 1em;
+			background-color: #bbd9ea;
+		}
+	</style>
+</head>
+
+<body>
+
+
+
+<!-- Title -->
+<div id="title">
+	<h1>Wacintaki Poteto 1.6.0 Readme</h1>
+
+	<h3>Last update:  March 1, 2015</h3>
+</div>
+
+<hr />
+
+
+
+<!-- Table of Contents -->
+<div id="index">
+	<h2>Table of Contents</h2>
+	<ul>
+	<li><a href="#overview">Overview</a></li>
+	<li><a href="#installation">Installation</a></li>
+	<li><a href="#update_wac">Update from an Older Version of Wacintaki</a></li>
+	<li><a href="#update_op">Update from OekakiPoteto</a></li>
+	<li><a href="#troubleshooting">Troubleshooting</a></li>
+	<li><a href="#support">Help and Support</a></li>
+	<li><a href="#credits">Credits</a></li>
+	</ul>
+</div>
+
+<hr />
+
+
+
+<!-- Overview -->
+<div id="overview">
+	<h2>Overview</h2>
+
+	<p>
+		Welcome to my fork of the OekakiPoteto 5.x source.  This version has a few new features compared to the original version of Poteto, but is mostly a modernization.  It includes proper HTML/CSS support, a reworked template system, thumbnails, group projects, significantly lower bandwidth usage, several bug and security fixes, and it runs on a wider variety of servers and configurations.  It also has the ability to add rules and a banner.
+	</p>
+	<p>
+		In terms of new features, Wacintaki has essentially been discontinued as of version 1.3, though fixes and random optimizations will continue to be made.  I have no plans to work on Wacintaki 2.0 until new, HTML5 paint programs are developed to replace the aging Java applets.  Check for new versions, downloads, and patches here: <a href="http://www.NineChime.com/products/">www.NineChime.com/products/</a>
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Installation -->
+<div id="installation">
+	<h2>Installation</h2>
+
+	<p>
+		For complete installation instructions, please refer to the <a href="documentation/manual.html">manual</a> which can either be found online or included with a complete Wacintaki archive.  The manual includes more in-depth information on how to set up a database, how to upload files to your server via FTP, and how to change file permissions.
+	</p>
+	<p>
+		If you are updating an existing board, skip this secion and see the update instructions below.
+	</p>
+
+
+	<h3>Step 1</h3>
+	<p>
+		Copy all the files from the &ldquo;oekaki&rdquo; folder into a folder on your server.  The destination folder may be any name, but all lower-case letters is recommended since URLs are generally case-sensitive.
+	</p>
+	<p>
+		Do <strong>NOT</strong> upload the documentation folder or anything else outside the &ldquo;oekaki&rdquo; folder of this distribution.  It sounds silly to point this out, but it's a fairly common mistake!
+	</p>
+
+
+	<h3>Step 2</h3>
+	<p>
+		After uploading all the files, use your FTP program to CHMOD the files to change their permissions.  It may or may not be necessary to CHMOD the main installation folder depending on your host's security policy.  Refer to the Wacintaki manual for an explanation on CHMOD numbers.  Use the following numbers for folders:
+	</p>
+
+<pre class="dir">
+775 (preferred) or 777:
+   <strong>./templates</strong> (important for template generation)
+   <strong>./resource</strong>  (contains files that may be regularly changed by the BBS)
+</pre>
+
+	<p>
+		The pictures and avatars folders, as well as the files in the resource folder, are generated automatically.  If you create them manually for some reason, use the following numbers:
+	</p>
+
+<pre class="dir">
+775 (preferred) or 777:
+   <strong>./avatars/</strong>
+   <strong>./pictures/</strong>
+
+664:
+   <strong>./resource/banner.php</strong>
+   <strong>./resource/hosts.txt</strong>
+   <strong>./resource/ips.txt</strong>
+   <strong>./resource/notice.php</strong>
+   <strong>./resource/rules.php</strong>
+</pre>
+
+	<p>
+		If you upload config files or any pictures via FTP, note that you may have to CHMOD the files with less restrictive numbers, such as 777 for folders or 666 for files.  This is because the PHP scripting language is running on a different security group than your FTP program, and thus will need more &ldquo;public&rdquo; permissions.  This may result in other people on your server being able to access your files via a system shell, so always try to use the highest security that works properly.
+	</p>
+
+	<h3>Step 3</h3>
+	<p>
+		View the board, and you should be redirected to the installer.
+	</p>
+
+
+	<h3>Step 4</h3>
+	<p>
+		After installing the BBS, you will be prompted to press a button to finalize the installation.  This will removed the install.php and update.php files from the BBS.  Neglecting to remove these files can result in serious security issues.  If the BBS cannot delete these files for you, it will let you know, and you MUST delete them manually.
+	</p>
+
+
+	<h3>Step 5</h3>
+	<p>
+		Two preview images are available.  The default is preview.png, the second is preview2.png.  You can replace them with any PNG image you like, but an image equal to the default canvas size is recommended (the default is 300 x 300).  Select new preview images using the installer or control panel, or simply overwrite the ones that come with Wacintaki Poteto.
+	</p>
+
+
+	<h3>Step 6:  OekakiBBS (optional)</h3>
+	<p>
+		The OekakiBBS paint applet was removed from Wacintaki in version 1.2.5, due to licensing concerns, as well as compatibility isses between the applet and newer versions of Java.  The problems with Java made it difficult or impossible for members to submit pictures.  However, Wacintaki still has the framework to support the applet.
+	</p>
+	<p>
+		To enable OekakiBBS, copy the &ldquo;oekakibbs.jar&rdquo; file into the &ldquo;oekaki&rdquo; folder.  Wacintaki will see it and add it to the draw screen.  The applet is bundled with OekakiPoteto and older versions of Wacintaki and Wax Poteto.  Versions of OekakiBBS newer than v2.64 will not work with Wacintaki, as they are exclusive to <a href="http://www.oekakibbs.com">www.OekakiBBS.com</a> and will not properly connect to other servers.
+	</p>
+	<p>
+		If you are upgrading an older version of Wacintaki, you may remove support for it by deleting the JAR file.  Note that if the JAR is removed, animations for old OekakiBBS drawings will no longer play.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Update_Wac -->
+<div id="update_wac">
+	<h2>Update from an Older Version of Wacintaki</h2>
+
+	<h3>Step 1</h3>
+	<p>
+		Make a backup of your &ldquo;resource&rdquo; folder!  This folder includes your rules, ban list, pr0n placeholder and preview images, etc.
+	</p>
+	<p>
+		A complete database backup would be a good idea, too, but if you know how to do that, chances are you've done it already.  <code>;)</code>
+	</p>
+
+	<h3>Step 2</h3>
+	<p>
+		Copy all the files into place, overwriting those that already exist.  As of version 1.2.2, Wacintaki will no longer overwrite your rules, banner, ban list, etc.
+	</p>
+
+	<h3>Step 3</h3>
+	<p>
+		Wacintaki 1.1.4 introduced a new &ldquo;hacks.php&rdquo; file in the resource folder to control cookies and other advanced things.  If you have edited your &ldquo;functions.php&rdquo; and &ldquo;header.php&rdquo; files to share cookies with multiple boards, you will need to copy the changes into the new &ldquo;hacks.php&rdquo; file.  Do not edit the &ldquo;hacks.php&rdquo; file unless you have a good reason to do so.
+	</p>
+
+	<h3>Step 4</h3>
+	<p>
+		View the BBS.  Some Wacintaki updates will not need to run an updater, others will.  The BBS will tell you what needs to be done.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Update_OP -->
+<div id="update_op">
+	<h2>Update from OekakiPoteto</h2>
+
+	<p>
+		To upgrade from an older version of OekakiPoteto, carefully follow the directions below.  The updater cannot do all of this for you because of how UNIX security works (it can take ownership of the files away from you!)
+	</p>
+
+	<h3>Step 1</h3>
+	<p>
+		If you need to go back to your old version of OekakiPoteto, make backups of your dbconn.php and config.php files, and everything in your templates and language folders.  Please note that the update.php script does not support downgrading, but keeping backups of your old files is recommended.
+	</p>
+
+	<h3>Step 2</h3>
+	<p>
+		Empty the &ldquo;templates&rdquo; and &ldquo;language&rdquo; folders.  It is not necessary to delete the actual folders.  This version of Poteto is not compatible with your old templates and language files, and failing to remove the old files can result in problems.  Future versions of Wacintaki Poteto may include a template converter/editor.
+	</p>
+
+	<h3>Step 3</h3>
+	<p>
+		Upload all the files from this distribution into your old Poteto folder and verify the CHMOD setting of all the files.  Use the CHMOD numbers from the installation instructions above.
+	</p>
+
+	<h3>Step 4</h3>
+	<p>
+		Move your existing &ldquo;hosts.txt&rdquo;, &ldquo;ips.txt&rdquo;, and &ldquo;notice.php&rdquo; files into the &ldquo;resource&rdquo; folder.  This will preserve your banlist and notice.  You can also copy your &ldquo;pr0n.png&rdquo; and &ldquo;preview.png&rdquo; images into the resource folder.  The resource folder contains all the files that make your BBS unique, like the banner and rules, and all files that must be CHMODed to 664 or 666.  Make sure the files are CHMODed correctly after you move them.
+	</p>
+
+	<h3>Step 5</h3>
+	<p>
+		Run update.php.  If you accidently view the index, it will tell you to run the updater.  The update script will give you a number of options depending on which version of Poteto you are already using.  You can upgrade from Poteto 4.x or 5.x, or one of the early developer versions of Wacintaki Poteto.
+	</p>
+
+	<h3>Step 6</h3>
+	<p>
+		If there is a weird problem, try running the updater again.  This will verify the database and rebuild the picture indexes.  Note that some database error may still be returned if the updater is run multiple times.  Normally, this is not a problem, though errors related to locked folders must be dealt with appropriately.  A folder is locked if its CHMOD number is incorrect, and is therefore not writable.
+	</p>
+
+	<h3>Step 7</h3>
+	<p>
+		IMPORTANT:  After updating the BBS, you will be prompted to press a button to finalize the update.  This will remove the install.php and update.php files from the BBS.  Neglecting to remove these files can result in serious security issues.  If the BBS cannot delete these files for you, it will let you know, and you MUST delete them manually.
+	</p>
+
+	<h3>Step 8</h3>
+	<p>
+		The BBS should now be updated.  Read the troubleshooting section if you encounter problems.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Troubleshooting -->
+<div id="troubleshooting">
+	<h2>Troubleshooting</h2>
+
+	<h3>Java doesn't work!</h3>
+	<p>
+		As of version 7.51, Java now refuses to run unsigned applets.  For artists to continue drawing on an oekaki board, they must go into the Java control panel and add a security exception for each oekaki board they visit.  This is a royal pain, but unfortunately Oracle, the company that controls Java, has made this security change permanent.  For more information, go to the <a href="https://www.java.com">Java web site</a> and do a search for &ldquo;Exception Site List&rdquo;.
+	</p>
+	<p>
+		The only effective way to bypass this requirement is to sign the applet with a CA signature.  This requires you to purchase a signature from a Certificate Authority, requires your hosting service to support HTTPS, and for you to have a reasonable knowledge of the Java security tools.
+	</p>
+
+	<h3>Broken animations / unable to retouch images with animations</h3>
+	<p>
+		After a certain Java update, presumably around 1.6.0_r15, ShiPainter animations have not been saving correctly.  This results in broken animations that will not play, and difficulty retouching images with an animation.  As of yet, I have been unable to track down the issue, and other Java programmers are complaining about similar problems.  The issue is that data that is being streamed and compressed at the same time will occasionally become corrupt, and this seems to affect only unsigned applets.
+	</p>
+	<p>
+		It is not possible for me to sign the applets, and this requires SSL certification, which many free or cheap hosts do not support.  I will continue looking into this issue to find a workaround, though I do not have the source code to ShiPainter so there may not be anything I can do.
+	</p>
+
+	<h3>Update Notes</h3>
+	<p>
+		If upgrading, do not change the location of your pictures folder or add an image name prefix.
+	</p>
+
+	<h3>Installer issues</h3>
+	<p>
+		Many of the installer options may be changed later in the oekaki control panel.  Some options that cannot be altered in the control panel are the database fields, the picture name prefix, the name and location of pictures folder, and your admin login.
+	</p>
+
+	<h3>Database issues</h3>
+	<p>
+		Make sure your server supports MySQL.  Other SQL databases (such as PostGreSQL) are not supported.
+	</p>
+	<p>
+		You must create a database for the installer to use -- the installer will only set up the database you allocate for it.  Check your server's control panel for info on how to create a MySQL database.
+	</p>
+	<p>
+		When creating a database, some servers will add a prefix to your database name and database prefix without telling you.  Make sure your db name and db prefix are correct when you run the Wacintaki installer.  For example, if you create a database called &ldquo;oekaki&rdquo; and your server account is &ldquo;bob4261&rdquo;, your database name may end up being &ldquo;bob4261_oekaki&rdquo;.
+	</p>
+	<p>
+		Do not confuse the database name and database prefix.  A database server partitions content into several named databases (name), each of which contains tables (prefix).  The database name tells the server which MySQL database shall be used for all your Wacintaki boards.  The database prefix tells the database which tables to use for exactly one of your boards.  For example, multiple Wacintaki boards may use the database &ldquo;oekaki&rdquo;, but each board must have it own prefix.  The default prefix is &ldquo;op_&rdquo;.  If you intend to use mulitple boards with one database, read the <a href="documentation/manual.html">Wacintaki manual</a> for more information.
+	</p>
+	<p>
+		The update.php script can be safely run multiple times if needed.  Take note of any error messages it returns, though some database errors are normal if update.php is run multiple times.
+	</p>
+	<p>
+		If the installer refuses to work, try removing all the databases before re-installing.  The installer is supposed to destroy any database tables when doing a clean install, but security restrictions may prevent this.
+	</p>
+	<p>
+		If you have multiple boards sharing one member profile database, and you want to remove only one board, make sure to only delete the database that contains pictures and comments.  If you delete the database that contains the member profiles, all of your boards will cease to function!
+	</p>
+
+	<h3>Naming</h3>
+	<p>
+		Make sure capitalization is correct.  On some servers, there is a difference between &ldquo;preview.png&rdquo; and &ldquo;Preview.PNG&rdquo;.  Using names in all lower-case letters is recommended.
+	</p>
+
+	<h3>Server Errors:  403, 500</h3>
+	<p>
+		A server will return a 500 error when a script is attempting to do something the server does not like.  For PHP scripts, this usually means the folders are using access permissions that are too generous, and the server is enforcing a higher security level.  It may also mean that &ldquo;.htacess&rdquo; files do not work on the server.  If you have copied the &ldquo;.htaccess&rdquo; file from the documentation folder to the server, try removing it.
+	</p>
+	<p>
+		A 403 error is when folder or file permissions are too restrictive.
+	</p>
+	<p>
+		On some servers, if the permissions are too generous, either a 403 or 500 error may be returned.
+	</p>
+	<p>
+		See the next section on File Permissions.
+	</p>
+
+	<h3>File Permissions</h3>
+	<p>
+		Make sure the templates, pictures, and resource folders are CHMODed to 775 or 777, otherwise, the server won't be able to generate the templates, save pictures, or edit your banner, ban list, etc.
+	</p>
+	<p>
+		Some servers do not allow you to CHMOD folders to 777, and may return a 500 server error.  Use 775, which is preferred, anyway.
+	</p>
+	<p>
+		In very rare cases when 755 is used, a server may return a 403 error, or Wacintaki may complain that a folder is still locked.  Try using 775 in these cases.  Only folders should have a CHMOD number with a 7 in it.  Writable files should always use either 644 or 664.
+	</p>
+	<p>
+		If your server tells you that you don't have permission to CHMOD any files or folders in your own account, try deleting the files/folders and then recopying or creating them with your FTP program.  This is a UNIX/Linux quirk, and may occur when scripts create files automatically.
+	</p>
+	<p>
+		If you are completely unable to delete any files or folders via FTP, then you must CHOWN the files.  Usually, only a system administrator can do this.
+	</p>
+
+	<h3>Other Permissions</h3>
+	<p>
+		If you lose your owner status, edit flagrestore.php in the documentation folder, upload it to the BBS folder, and run it.  A Wacintaki board is supposed to have only one owner.
+	</p>
+
+	<h3>Thumbnails</h3>
+	<p>
+		Thumbnails will only work with servers that have the GDlib graphics library installed and the library has been enabled in PHP.  To enable GDlib, open your &ldquo;php.ini&rdquo; file and look for the section on <em>Dynamic Extensions</em>.  Below, there will be two extensions that are disabled with a semicolon, &ldquo;php_exit.so&rdquo; and &ldquo;php_gd2.so&rdquo;.  Enable both these extentions.
+	</p>
+	<p>
+		Note #1:  on Windows, the libraries will have a &ldquo;.dll&rdquo; extension, not &ldquo;.so&rdquo;.
+	</p>
+	<p>
+		Note #2:  make sure the EXIF extension is enabled <em>before</em> the gd2 extension, or some JPEGs may not work correctly.  JPEG is just a compression system used in different file formats, including JFIF, the de-facto JPEG format.  EXIF is the &ldquo;guts&rdquo; of non-JFIF JPEG format, and may be required for images from digital cameras and paint programs other than the Oekaki applets.
+	</p>
+
+	<h3>Templates</h3>
+	<p>
+		If your page looks very plain, go to the control panel and make sure your default template is correct.  Remember that old Poteto templates will not work with Wacintaki Poteto.  If there are old templates still installed, remove them, then use the &ldquo;Reset All Templates&rdquo; feature in the control panel.
+	</p>
+	<p>
+		If a template doesn't look right, delete the CSS version of the template.  A new template will be rebuilt automatically from the PHP template code.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Help and Support -->
+<div id="support">
+	<h2>Help and Support</h2>
+
+	<p>
+		Please read the <a href="documentation/manual.html">manual</a> (specifically, the troubleshooting section) in the documentation folder of this distribution before seeking help.
+	</p>
+	<p>
+		Before reporting bugs, make sure you have the latest stable version of Wacintaki.
+	</p>
+	<p>
+		For help using Wacintaki or to report a bug, please visit the <a href="http://www.NineChime.com/forum/">NineChime Forum</a>.  The forum does not require registration and all questions regarding OekakiPoteto, Wax Poteto, and Wacintaki are welcome.
+	</p>
+	<p>
+		Please do not ask questions about Wacintaki Poteto on OekakiPoteto forums.  Wacintaki functions very differently compared to OekakiPoteto and you may not be able to get any help.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Credits -->
+<div id="credits">
+	<h2>Credits</h2>
+
+	<p>
+		Wacintaki Poteto is based on the OekakiPoteto 5.1.0a source, and has been released with permission from Theo Chakkapark.  Changes are &copy;Copyright 2004-2015 Marc A. Leveille.  New versions of Wacintaki Poteto and the update.php file may be downloaded from <a href="http://www.NineChime.com/products/">www.NineChime.com/products/</a>
+	</p>
+
+	<p>
+		OekakiPoteto 5.x &copy;Copyright 2001-2003 Theo Chakkapark and Marcello Bastéa-Forte.  OekakiPoteto 5.x may be downloaded from <a href="http://www.suteki.nu">www.suteki.nu</a>
+	</p>
+
+	<p>
+		Please contact Theo Chakkapark regarding license questions about OekakiPoteto.  Please contact me regarding technical issues or bugs with Wacintaki.
+	</p>
+
+	<p>
+		See <a href="documentation/manual.html">manual.html</a> for a complete list of credits.
+	</p>
+</div>
+
+
+
+<!-- Footer -->
+<div id="footer">
+	<h1>&nbsp;</h1>
+</div>
+
+
+
+</body>
+</html>

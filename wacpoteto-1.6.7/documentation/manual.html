@@ -1,0 +1,1170 @@
+<!DOCTYPE html PUBLIC 
+	"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Wacintaki 1.x User Manual</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+	<style type="text/css" title="Default">
+		html {
+			background-color: #ddd;
+		}
+
+		body {
+			margin: auto;
+			padding: 20px;
+			max-width: 900px;
+			background-color: white;
+			font-family: "Arial", "Helvetica", sans-serif;
+			font-size: 10pt;
+		}
+
+		a:hover {
+			color: red;
+		}
+
+		p {
+			margin-left: 30pt;
+		}
+
+		form {
+			margin-left: 30pt;
+		}
+
+		h1 {
+			/* Page header */
+			padding-left: 15px;
+			background-color: #f5e0ff;
+		}
+
+		h2 {
+			/* Section header */
+			padding-left: 15px;
+			background-color: #e0e0ff;
+		}
+
+		h3 {
+			/* General headers */
+		}
+
+		hr {
+			display: none;
+		}
+		hr.minor {
+			display: block;
+			width: 10%;
+		}
+
+		pre.prompt {
+			/* Simulated CLI prompt */
+			margin-left: 30pt;
+			padding: 1em;
+			background-color: pink;
+		}
+
+		pre.dir {
+			/* Simulated directory (folder) listing */
+			margin-left: 30pt;
+			padding: 1em;
+			background-color: #bbd9ea;
+		}
+	</style>
+</head>
+
+<body>
+
+
+
+<!-- Title -->
+<div id="title">
+	<h1>Wacintaki 1.6.0 Documentation</h1>
+
+	<h3>Last update:  March 1, 2015</h3>
+</div>
+
+<hr />
+
+
+
+<!-- Table of Contents -->
+<div id="index">
+	<h2>Table of Contents</h2>
+
+	<h3>1. Pre-Installation</h3>
+	<ul>
+		<li><a href="#pre1">Requirements</a></li>
+		<li><a href="#pre2">Tools</a></li>
+		<li><a href="#pre3">Usage notes</a></li>
+		<li><a href="#pre4">Determining if you are a newbie</a></li>
+	</ul>
+
+
+	<h3>2. Update</h3>
+	<ul>
+		<li><a href="#up1">Updating an existing oekaki board</a></li>
+	</ul>
+
+
+	<h3>3. Installation</h3>
+	<ul>
+		<li><a href="#i1">Step 1:  Collect Information</a></li>
+		<li><a href="#i2">Step 2:  Create Folder</a></li>
+		<li><a href="#i3">Step 3:  Upload Files</a></li>
+		<li><a href="#i4">Step 4:  File Permissions</a></li>
+		<li><a href="#i5">Step 5:  The Installer</a></li>
+		<li><a href="#i6">Step 6:  Secure Installer</a></li>
+	</ul>
+
+
+	<h3>4. Installing Multiple Boards</h3>
+	<ul>
+		<li><a href="#mb1">Member sharing configuration</a></li>
+		<li><a href="#mb2">Non-member sharing configuration</a></li>
+		<li><a href="#mb3">Sharing cookies with more than one Wacintaki board</a></li>
+	</ul>
+
+
+	<h3>5. Using Wacintaki</h3>
+	<ul>
+		<li><a href="#u1">Account types</a></li>
+		<li><a href="#u2">The admin menus</a></li>
+		<li><a href="#u3">Adding a banner or notice</a></li>
+		<li><a href="#u4">Modifying the board rules</a></li>
+		<li><a href="#u5">The Control Panel</a></li>
+		<li><a href="#u6">Avatars</a></li>
+		<li><a href="#u7">Safety Saves</a></li>
+		<li><a href="#u8">Passwords</a></li>
+		<li><a href="#u9">Public Pictures</a></li>
+		<li><a href="#u10">Adding members</a></li>
+		<li><a href="#u11">Giving permissions</a></li>
+		<li><a href="#u12">Autokill: membership expiration</a></li>
+		<li><a href="#u13">Archiving</a></li>
+		<li><a href="#u14">Log file (board activity)</a></li>
+	</ul>
+
+
+	<h3>6. Troubleshooting</h3>
+	<ul>
+		<li><a href="#t1">Diagnostics screen</a></li>
+		<li><a href="#t2">Log file (security, errors)</a></li>
+		<li><a href="#t3">Wacintaki cannot send e-mail</a></li>
+		<li><a href="#t4">Templates don't work / won't update</a></li>
+		<li><a href="#t5">Problems with Java applets (applets show red &ldquo;X&rdquo; or return &ldquo;incorrect magic number&rdquo; errors)</a></li>
+		<li><a href="#t6">Unable to post comments, edit notice and banner, chat, etc...</a></li>
+		<li><a href="#t7">config.php or dbconn.php returns &ldquo;access denied&rdquo; errors</a></li>
+		<li><a href="#t8">Pictures folder is locked</a></li>
+		<li><a href="#t9">Animations won't play (&ldquo;Not in GZip Format&rdquo; and other errors)</a></li>
+		<li><a href="#t10">Non-Administrative issues</a></li>
+	</ul>
+
+
+	<h3>7. Help and Support</h3>
+	<ul>
+		<li><a href="#support">The official support forum</a></li>
+	</ul>
+
+
+	<h3>8. Newbie Guide</h3>
+	<ul>
+		<li><a href="#a1">I've determined I'm a newbie.  Now what?</a></li>
+		<li><a href="#a2">What is covered in the Newbie Guide?</a></li>
+		<li><a href="#a3">What isn't covered in the Newbie Guide?</a></li>
+		<li><a href="#a4">I don't have a web site or know where to get one</a></li>
+		<li><a href="#a5">What kind of web host do I need to run an oekaki board?</a></li>
+		<li><a href="#a6">Will all PHP and MySQL hosts run an oekaki?</a></li>
+		<li><a href="#a7">What is a PHP, and why do so many Wacintaki files have &ldquo;.php&rdquo; at the end?</a></li>
+		<li><a href="#a8">What is SQL / MySQL?</a></li>
+		<li><a href="#a9">What is CHMOD?</a></li>
+		<li><a href="#a10">What is FTP?</a></li>
+		<li><a href="#a11">What about bandwidth?</a></li>
+	</ul>
+
+	<h3>9. Credits</h3>
+	<ul>
+		<li><a href="#credits">OekakiPoteto and Wacintaki developers</a></li>
+	</ul>
+</div>
+
+<hr />
+
+
+
+<!-- Pre-Installation -->
+<div id="preinstallation">
+	<h2>Pre-Installation</h2>
+
+	<h3 id="pre1">Requirements</h3>
+	<p>
+		Before installing Wacintaki, make sure your server meets the following requirements:
+	</p>
+	<ul>
+		<li>UNIX compatible or Windows NT server.</li>
+		<li>PHP version 5.0 or higher.  Tested with PHP 5.6.</li>
+		<li>MySQL version 4 or higher.  Other brands of SQL databases are not supported.</li>
+		<li>CHMOD support (UNIX/Linux) or read/write/execute permissions (Windows NT).</li>
+	</ul>
+	<p>
+		The following are optional:
+	</p>
+	<ul>
+		<li>To use thumbnails, you will need the GD graphics library (GDlib).  This is normally built into PHP and does not have to be installed separately.  If you are running your own server, directions on enabling GDlib are in the readme file of your Wacintaki distribution.</li>
+	</ul>
+
+
+	<h3 id="pre2">Tools</h3>
+	<p>
+		It is recommended that you have an FTP utility to upload files to your server.  It will take you much more time (and effort) to FTP the files manually from a command prompt.  Free utilities offer all the basics for running Wacintaki; commercial FTP programs have features useful for maintaining entire web sites:
+	</p>
+	<ul>
+		<li><a href="http://www.coreftp.com/">CoreFTP</a> - (Windows, Free)</li>
+		<li><a href="http://www.coffeecup.com/free-ftp/">CoffeCup FTP</a> - (Windows, Free)</li>
+		<li><a href="http://filezilla.sourceforge.net/">FileZilla</a> - (Windows, Free)</li>
+		<li><a href="http://www.cthulhusoftware.com/software/ftpthingy/index.html">FTP Thingy</a> - (Mac, Free)</li>
+		<li><a href="http://fetchsoftworks.com/">Fetch</a> - (Mac, Shareware)</li>
+		<li><a href="http://www.ftpx.com/">FTP Explorer</a> - (Windows, Shareware)</li>
+		<li><a href="http://www.smartftp.com/">SmartFTP</a> - (Windows, Commercial)</li>
+		<li><a href="http://www.ipswitch.com/Products/WS_FTP/">WS_FTP</a> - (Windows, Commercial)</li>
+		<li><a href="http://www.bpftp.com/">Bulletproof FTP</a> - (Win/Mac, Shareware)</li>
+		<li><a href="http://www.cuteftp.com/">CuteFTP</a> - (Win/Mac, Commercial)</li>
+	</ul>
+	<p>
+		Note that some Mac FTP clients may only work on MacOS X.  Fetch is one program that will work on older Macs, like System 7 and MacOS 8.
+	</p>
+
+
+	<h3 id="pre3">Usage notes</h3>
+	<p>
+		Like any BBS, Wacintaki will put a strain on your server's resources.  The developers hold no responsibility if your site goes over its monthly disk or bandwidth usage, and you are charged zillions of dollars, rupees, pounds, etc. because of over-usage.
+	</p>
+	<p>
+		Since Wacintaki is very graphically intensive, make sure your server can handle:
+	</p>
+	<ul>
+		<li>Heavy disk usage.  10-50 Megs of space recommended depending on how many pictures your BBS will store at a time.</li>
+		<li>Heavy bandwidth traffic.  With 10 images displayed per page, bandwidth usage of 300K per page view is not uncommon.  Bandwidth usage can vary from .5 to 5 Gigabytes per month, depending on popularity.  These numbers are common for large BBS systems.</li>
+	</ul>
+	<p>
+		NOTE: using the uniformity thumbnail mode can decrease bandwidth drastically.
+	</p>
+	<p>
+		Also keep in mind that certain BBS functions will use more resources than others, as follows:
+	</p>
+	<ul>
+		<li>Chat room.  The built-in chat will consume a lot of bandwidth, so it is disabled by default  It should be enabled only if you know you can tolerate the extra bandwidth, or if your BBS has few members.  Using a dedicated chat program, free chat server, or encouraging people to share AIM and ICQ addresses is recommended.</li>
+	</ul>
+
+
+	<h3 id="pre4">Determining if you are a newbie</h3>
+	<p>
+		You are considered a newbie if..
+	</p>
+	<ul>
+		<li>You do not know what an FTP client is.</li>
+		<li>You do not know how to create directories.</li>
+		<li>You do not know how to CHMOD files / directories.</li>
+		<li>You do not know how to switch between ASCII / Binary modes on your FTP.</li>
+		<li>You do not know what services a web host must have to run an oekaki.</li>
+	</ul>
+	<p>
+		... then you need the <a href="#newbie">Newbie Guide</a>.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Update -->
+<div id="update">
+	<h2>Update</h2>
+
+	<h3 id="up1">Updating an existing oekaki board</h3>
+	<p>
+		To update an existing OekakiPoteto or Wacintaki board, please read the <a href="../readme.html">readme.html</a> file that came with your distribution.
+	</p>
+	<p>
+		Before updating, it is recommended that you backup all files in the resource folder.  In fact, you should always have a backup of these files.
+	</p>
+	<p>
+		You may need to know the version number of your existing board before you can update.  To get the current version of your board, view the FAQ on your board.
+	</p>
+	<p>
+		Also note that Wacintaki 1.1.4 now uses a &ldquo;hacks.php&rdquo; file in the resource folder to control cookie usage and other features that used to be at the top of the &ldquo;functions.php&rdquo; and &ldquo;header.php&rdquo; files.  If you have edited those files, you will need to copy the changes into the &ldquo;hacks.php&rdquo; file.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Install -->
+<div id="installation">
+	<h2>Installation</h2>
+
+
+	<h3 id="i1">Step 1:  Collect Information</h3>
+	<p>
+		Make sure you have read the <a href="#pre1">requirements</a>, and have the following information before you proceed:
+	</p>
+	<ul>
+		<li>FTP address</li>
+		<li>FTP username and password</li>
+		<li>MySQL database name, username, and password</li>
+	</ul>
+	<p>
+		If you do not know any of the following, please e-mail your web host for the information and if your web hosting plan meets the requirements to install Wacintaki.
+	</p>
+	<p>
+		Note that when creating a MySQL database, your server control panel may automatically add a prefix to your database name or user name.  For example, if your login for the control panel is &ldquo;bob&rdquo;, and you typed &ldquo;myoekaki&rdquo; as the database name, the actual name of the database may be &ldquo;bob_myoekaki&rdquo;.  Take this into account if you are having connection problems with your database.
+	</p>
+
+
+	<h3 id="i2">Step 2:  Create Folder</h3>
+	<p>
+		Log into your site with FTP.  If you're not that experienced with FTP, keep in mind that many FTP programs can use both a www and ftp address to log into a server, so &ldquo;www.Server.com&rdquo; and &ldquo;ftp.Server.com&rdquo; should both work.  If you have trouble, try the ftp prefix instead of www.  The &ldquo;Server Port&rdquo; is almost always 21.  Other ports can be specified by the server, but 21 is the default for most servers and FTP programs.  The FTP username and password should be obvious.  <code>:)</code>
+	</p>
+	<p>
+		Many servers have a special folder in which you need to upload files.  If you're used to uploading files with a web-based file manager, rather than FTP, you'll need to look for a public share folder which is usually called &ldquo;public_html&rdquo;, &ldquo;www&rdquo;, &ldquo;web&rdquo;, or sometimes &ldquo;home&rdquo;.  If you do not create your oekaki folder in that special &ldquo;public&rdquo; folder, your files are considered to be private and will not show up on the Internet.  Some servers do not have this public share folder, so if you don't see it, don't worry.  UNIX / Linux servers usually have this folder, Windows servers may not.
+	</p>
+	<p>
+		Once you're logged in and viewing the correct upload folder, you may either upload the files directly, or create a sub-folder on your server for Wacintaki.  If you create a sub-folder, it may be any name you choose, though names in all lower-case letters and with no spaces or weird characters (like apostrophes, tildes, and symbols) are recommended.
+	</p>
+	<p>
+		If you are uploading the files to the root folder of the server (&ldquo;public_html&rdquo;), you do not need to change the file permissions.  If the files are in a sub-folder, it should have a CHMOD number of 755.  Most servers default to 755, so you may not need to change it.  To CHMOD files in most FTP programs, right-click the file and choose CHMOD or something related to changing permissions or properties.  The middle digit is what controls write permission for &ldquo;groups&rdquo; (different scripting services on the server).
+	</p>
+	<p>
+		<strong>NOTE:  </strong>Some servers will not work with a CHMOD of 755, and may return either a 500 Internal Server Error or 403 Forbidden error.  In these cases, try using 775, which allows group write.  If this gives you a 500 Internal Server Error, try using 777, which enables all permissions.  For some servers, 777 will return an error because the permissions are too generous.  Always try the lowest permissions that will work, so start with 755, then try 775, then 777 as a last resort.  If problems persist, ask your system administrator for help.
+	</p>
+
+
+	<p>
+		Example: The &ldquo;oekaki&rdquo; folder is created as the directory in which to install Wacintaki.
+	</p>
+<pre class="dir">
+<strong>/oekaki</strong> CHMOD 755
+</pre>
+
+
+	<h3 id="i3">Step 3:  Upload Files</h3>
+	<p>
+		Within this new directory, upload the contents of the &ldquo;oekaki&rdquo; folder from your Wacintaki distribution.  Do <strong>NOT</strong> upload the documentation folder or anything else outside the &ldquo;oekaki&rdquo; folder of this distribution.  It may sound silly to point this out, but it's a fairly common mistake.
+	</p>
+	<p>
+		CHMOD the <em>resource</em>, and <em>templates</em> directories to 775 (preferred), or 777.  The other directories do not need to be CHMODed.  Your Wacintaki directory should now look something like this:
+	</p>
+
+<pre class="dir">
+<strong>/oekaki</strong> CHMOD 755
+   <strong>/language</strong>   CHMOD  755
+   <strong>/lytebox</strong>    CHMOD  755
+   <strong>/resource</strong>   CHMOD *775
+   <strong>/shipainter</strong> CHMOD  755
+   <strong>/smilies</strong>    CHMOD  755
+   <strong>/templates</strong>  CHMOD *775
+   2Draw.gif
+   addusr.php
+   banlist.php
+   ...
+</pre>
+
+	<p>
+		All folders you create should be named with lower-case letters to minimize problems.
+	</p>
+	<p>
+		The installer will automatically create a pictuers folder and an avatars folder for storing images, so you should not create them.  If you must make them yourself (for example, if moving the board from one server to another), make sure you CHMOD them correctly.  Using a CHMOD of 775 makes it easier to edit files in the pictures folder with an FTP program, but normally files in the pictures folder are created by Wacintaki, and you should leave them alone.
+	</p>
+	<p>
+		It's unlikely, but if your FTP program cannot determine that PHP files must be uploaded in ASCII mode, you will have to verify they have been uploaded as ASCII instead of BINARY.  Most FTP programs will do this correctly.
+	</p>
+
+
+	<h3 id="i4">Step 4:  File Permissions</h3>
+	<p>
+		Normally Wacintaki creates all the files it needs automatically.  If you are using a custom install of Wacintaki or moving it to another server, you must CHMOD some additional files in the <em>resource</em> folder.  This is only required if you create the files yourself.
+	</p>
+	<p>
+		Open the <em>resource</em> folder and CHMOD the following files to 664:
+	</p>
+	<ul>
+		<li>banner.php</li>
+		<li>hosts.txt</li>
+		<li>ips.txt</li>
+		<li>notice.php</li>
+		<li>rules.php</li>
+	</ul>
+	<p>
+		The <em>resource</em> folder contains all the files that make your BBS unique and/or may change frequently.  Your banner and rules images, as well as other custom files, should go into this folder.  Images used for custom templates should go into their own folders in the <em>templates</em> directory.  See the &ldquo;Banana&rdquo; template for an example.
+	</p>
+
+
+	<h3 id="i5">Step 5:  The Installer</h3>
+	<p>
+		In a web browser, go to <strong>http://www.yourwebsite.com/yourWacintakiDirectory/</strong>.  You will be redirected to the installer.  Use the information gathered in <a href="#i1">Step 1</a> to fill out the required fields.  If you only want to install one board, use &ldquo;op_&rdquo; for both database prefix fields.  To install multiple boards, read the section on <a href="#multiple">Installing Multiple Boards</a> before continuing.
+	</p>
+
+	<p>
+		If you have manually created a pictures directory, be sure to type it in the proper field on the install page, otherwise, the installer will make it automatically.  At the bottom of the page, fill in the login name and password you will use for the owner account.  This will be your personal account from which you can both view and maintain the BBS.
+	</p>
+
+	<h3 id="i6">Step 6:  Secure Installer</h3>
+	<p>
+		After the install has completed, you will be asked to click a button to delete the installer and updater.  Click it, and Wacintaki will be ready to use.  Further configuration changes may be made by going into the Control Panel.
+	</p>
+
+	<p>
+		If something didn't go right, there is an option to remove the database at the top of the installer.  Only copy the install.php file back onto the server if you need to delete the database.  Once the database has been removed, you can install a new board, or remove the Wacintaki files from your server.
+	</p>
+
+	<p>
+		If you remove the Wacintaki files from your server before uninstalling the database, you will have to manually remove the MySQL database, or it will remain on your server forever.  This isn't a catastrophe, but it will waste space, as well as a perfectly good database slot.  <code>:)</code>
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Multiple Boards -->
+<div id="multiple">
+	<h2>Installing Multiple Boards</h2>
+
+	<h3 id="mb1">Member sharing configuration</h3>
+
+	<p>
+		This option is for those who want to set up two or more oekaki boards, and want to share the member database, so users can use the same login for each board.
+	</p>
+
+	<h3>Step 1:</h3>
+
+	<p>
+		On the first board, go to Owner &gt; Control Panel, and note down the following:
+	</p>
+
+	<ul>
+		<li>Database Prefix</li>
+		<li>Member Database Prefix</li>
+	</ul>
+
+	<p>
+		The table below is an example of what you might have if you are using the default install configuration.
+	</p>
+
+	<table border="1" cellpadding="3" cellspacing="3">
+	<tr align="center" style="background-color: #6633CC;">
+	<td>
+		&nbsp;
+	</td>
+	<td>
+		<strong><span style="color: white;">Board 1</span></strong>
+	</td>
+	</tr>
+	<tr style="background-color: #FFFFCC;">
+	<td align="right">
+		<strong>Database Prefix</strong>
+	</td>
+	<td align="center">
+		_op
+	</td>
+	</tr>
+	<tr style="background-color: #CCFF99;">
+	<td align="right">
+		<strong>Member Database Prefix</strong>
+	</td>
+	<td align="center">
+		_op
+	</td>
+	</tr>
+	</table>
+
+	<h3>Step 2:</h3>
+
+	<p>
+		Install your additional Wacintaki into a new, separate directory.  Do NOT copy your Wacintaki files from the first board.  When you enter install.php for the new board, you must do the following:
+	</p>
+
+	<ul>
+		<li><strong>Database Prefix:</strong> Choose a prefix that none of the other boards have.</li>
+		<li><strong>Member Database Prefix:</strong> All boards that wish to share the member database must use the <strong>same</strong> prefix.</li>
+	</ul>
+
+	<p>
+		If you are using the default Database Prefix and Member Database Prefix, you can try using these values on your additional board(s).<br />
+		<br />
+		<strong>Note:</strong> You WILL receive errors such as:
+	</p>
+
+	<p>
+		Table 'op_oekaki' already exists<br />
+		Duplicate entry '' for key 2<br />
+		Table 'op_oekakichat' already exists<br />
+		Table 'op_oekakionline' already exists<br />
+		Table 'op_oekakimailbox' already exists<br />
+		Table 'op_oekakikill' already exists
+	</p>
+
+	<p>
+		This is normal.
+	</p>
+
+	<p>
+		Once installed, members will have to login for each board independently, even though all the boards are sharing the same member database.  A workaround is described in the section <a href="#mb3">Sharing cookies with more than one Wacintaki board</a>.
+	</p>
+
+	<p>
+		Example of two board configuration:
+	</p>
+
+	<table border="1" cellpadding="3" cellspacing="3" style="width: 75%;">
+	<tr align="center" style="background-color: #6633CC;">
+	<td>
+		&nbsp;
+	</td>
+	<td>
+		<strong><span style="color: white;">Board 1</span></strong>
+	</td>
+	<td>
+		<strong><span style="color: white;">Board 2</span></strong>
+	</td>
+	<td>
+		<strong><span style="color: white;">Notes</span></strong>
+	</td>
+	</tr>
+
+	<tr style="background-color: #FFFFCC;">
+	<td align="right">
+		<strong>Database Prefix</strong>
+	</td>
+	<td align="center">
+		<strong>_op</strong>
+	</td>
+	<td align="center">
+		<strong>_op2</strong>
+	</td>
+	<td align="center">
+		All boards must not share the same Database Prefix.
+	</td>
+	</tr>
+
+	<tr style="background-color: #CCFF99;">
+	<td align="right">
+		<strong>Member Database Prefix</strong>
+	</td>
+	<td align="center">
+		_op
+	</td>
+	<td align="center">
+		_op
+	</td>
+	<td align="center">
+		Must share the same Member Database Prefix.
+	</td>
+	</tr>
+	</table>
+
+
+	<p>
+		Example of three board configuration:
+	</p>
+
+
+	<table border="1" cellpadding="3" cellspacing="3" style="width: 75%;">
+	<tr align="center" style="background-color: #6633CC;">
+	<td>
+		&nbsp;
+	</td>
+	<td>
+		<strong><span style="color: white;">Board 1</span></strong>
+	</td>
+	<td>
+		<strong><span style="color: white;">Board 2</span></strong>
+	</td>
+	<td>
+		<strong><span style="color: white;">Board 3</span></strong>
+	</td>
+	<td>
+		<strong><span style="color: white;">Notes</span></strong>
+	</td>
+	</tr>
+
+
+	<tr style="background-color: #FFFFCC;">
+	<td align="right">
+		<strong>Database Prefix</strong>
+	</td>
+	<td align="center">
+		<strong>_op</strong>
+	</td>
+	<td align="center">
+		<strong>_op2</strong>
+	</td>
+	<td align="center">
+		<strong>_op3</strong>
+	</td>
+	<td align="center">
+		All boards must not share the same Database Prefix.
+	</td>
+	</tr>
+
+	<tr style="background-color: #CCFF99;">
+	<td align="right">
+		<strong>Member Database Prefix</strong>
+	</td>
+	<td align="center">
+		_op
+	</td>
+	<td align="center">
+		_op
+	</td>
+	<td align="center">
+		_op
+	</td>
+	<td align="center">
+		Must share the same Member Database Prefix.
+	</td>
+	</tr>
+	</table>
+
+
+	<h3 id="mb2">Non-Member sharing configuration</h3>
+	<p>
+		If you want to have separate member registrations for each board, follow the directions above and upload a new set of Wacintaki files to your server, but <strong>do not</strong> use the same Member Database Prefix as any other board on your server.
+	</p>
+	<p>
+		This will ensure that each Wacintaki board will have its own, unique member list.  People will have to register for each board independently of each other.
+	</p>
+
+	<h3 id="mb3">Sharing cookies with more than one Wacintaki board</h3>
+	<p>
+		Normally, Wacintaki uses one cookie for each oekaki board, forcing people to re-login for each board even though every board uses the same member database.  It is possible to resolve this by editing the &ldquo;hacks.php&rdquo; file in the resource folder.
+	</p>
+	<p>
+		The hacks file is new for Wacintaki v1.1.4, and includes extra functionality that is considered too risky or difficult to implement into the control panel.  This file replaces the hacks in the functions.php file, ensuring that every time you install a new patch, your hacks will not be discarded.
+	</p>
+	<p>
+		Inside the hacks.php file, there are two variables named &ldquo;$cookie_path&rdquo; and &ldquo;$cookie_domain&rdquo;.  By editing these paths you can make cookies visible to the entire server, or just a part of it.  If you have your own server (or domain name), you can use a single slash as the path (the root path), and every cookie made by any one of your Wacintaki boards will be visible throughout the server and work with every board.  If you have an account on a shared server, you can specify your account name as the path.  For example, if the URL to your oekaki board is &ldquo;http://www.Server.com/MyAccount/oekaki&rdquo;, then the cookie path would be <code>/MyAccount</code> (note the lack of the &ldquo;http&rdquo; and server name).  This will make the cookie visible only to MyAccount, but NOT to the rest of the server.  You wouldn't want other peoples' oekaki boards installed on, for example, Tripod, to all have access to your cookies!
+	</p>
+	<p>
+		Be very careful when using this feature, as an improper value may make it impossible for people to log in, and cookies made global to the entire server may conflict with other boards not owned by you.  PHP knowledge is also recommended, as you are editing the source code directly and mixing single and double quotes can cause errors that will render the board inoperable.  If you mess up, just replace the hacks.php file with an older copy or one that came with Wacintaki, and leave the $cookie_path and $cookie_domain variables alone.
+	</p>
+	<p>
+		<strong>Please note: all your boards must have an identical copy of the hacks.php file!</strong>  Once you have edited the hacks file, copy it to the resource folder of <em>each</em> BBS that will share a single cookie.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Usage -->
+<div id="usage">
+	<h2>Using Wacintaki</h2>
+
+	<h3 id="u1">Account types</h3>
+	<p>
+		Here is a list of account types.  For more information on account management and user flags, view the &ldquo;Admin &gt; Modify Permissions&rdquo; menu.
+	</p>
+	<ul>
+		<li>Owner:  The person who set up and owns the board.  Owners have full control to all moderation functions.  Only the owner may access the control panel, send mass messages to members, change passwords, or permanently delete member accounts.</li>
+		<li>Super Administrator:  A Super Administrator has the ability to add and remove administrators as well as the abilities that administrators have.</li>
+		<li>Administrator:  An administrator has all the basic moderation functions, which includes deleting any picture or comment, locking threads, recovering a picture for any account, editing user flags and profiles (including suspending accounts), and changing the rules, banner, and ban lists.  Administrators also have more sophisticated editing and upload tools than either moderators or general users.</li>
+		<li>Moderator:  Moderators have the ability to manage threads, delete individual comments, upload pictures for other members, and edit picture information.  They do not have the ability to delete pictures or WIPs, update the notice and banner, modify the ban list, or many other administrator tasks.  As with general members, most moderator actions are logged.  It is recommended that owners promote members to moderators rather than administrators.</li>
+		<li>General User:  A member of the board.  General users may post comments, delete their own pictures and comments, and draw, animate, or upload if the proper access has been given to them when their accounts were approved.</li>
+	</ul>
+
+	<h3 id="u2">The admin menus</h3>
+	<p>
+		There are four types of menus at the top of the main page.  The one that starts with &ldquo;FAQ&rdquo; is the main menu and will be visible to the public.  The &ldquo;My Oekaki&rdquo; menu is available to all members to manage their pictures and posts.  &ldquo;Admin&rdquo; is a menu reserved for administrators and super administrators and provides several methods for board moderation.  There is also an &ldquo;Owner&rdquo; menu reserved exclusively for the board owner.  Other admins and super admins cannot access the owner functions.
+	</p>
+
+	<h3 id="u3">Adding a banner or notice</h3>
+	<p>
+		Use the &ldquo;Admin &gt; Edit Banners&rdquo; menu.  The banner will show up above the main menus, the notice will show below the menus and above the page numbers.  HTML is required for both.  A plain &lt;div&gt; is automatically used for banner content.  For clarity, consider using &lt;div class=&quot;infotable&quot;&gt; for the notice.  That will pad the information and put it on a plain background.
+	</p>
+
+	<h3 id="u4">Modifying the board rules</h3>
+	<p>
+		Use the &ldquo;Admin &gt; Edit Rules&rdquo; menu.  HTML is required, so use a &lt;div&gt;, &lt;p&gt;, or &lt;table&gt; for the content, and a &lt;br /&gt; is required for each line break.  Unordered lists, made with &lt;ul&gt; and &lt;li&gt; tags, are recommended.
+	</p>
+	<p>
+		Normally when people register on your board, they will be taken to the registration screen first.  There is a control panel option under &ldquo;Registration&rdquo; that will show the board rules to people before they can register.  It is off by default because a clean install of Wacintaki has no rules.
+	</p>
+
+	<h3 id="u5">The Control Panel</h3>
+	<p>
+		Only owners may access the control panel.  Most of the features have explanations below each item as to what it does.  Unlike OekakiPoteto, if a Wacintaki feature is not compatible with your server, it will be automatically disabled in the control panel.
+	</p>
+	<p>
+		If you need to update SQL information, there are tools to do this in the documentation folder, as well as on the NineChime web site.
+	</p>
+
+	<h3 id="u6">Control panel:  Avatars</h3>
+	<p>
+		Wacintaki allows each member to upload an avatar to his or her profile via the profile editor.  This is a small picture, typically 50&times;50 pixels that shows up before that member's name when they post.  The installer creates an avatar folder, and the feature must be enabled in the control panel.  Avatars may show up on picture posts or on every comment on the board, depending on the config options chosen by the owner.
+	</p>
+
+	<h3 id="u7">Control panel:  Safety saves</h3>
+	<p>
+		Safety saves are pictures that are drawn but not immediately posted to the board, and may be finished at a later time.  They are automatically removed if they are not finished after a certain amount of time, and people are only allowed to have one safety save at a time.  Safety Saves are on by default, and may be disabled in the control panel.
+	</p>
+	<p>
+		Be aware that a safety save will take up one slot on the board, so increasing the safety save delete time may not be a good idea, depending on how many slots you have available and how much space you have on your server.
+	</p>
+	<p>
+		If a picture appears to be incomplete, admins may turn it into a safety save by clicking &ldquo;WIP&rdquo; in the post header.  A mailbox message will be sent to the artist, alerting him or her that the picture must be finished within the time period set in the control panel.
+	</p>
+
+	<h3 id="u8">Passwords</h3>
+	<p>
+		People may assign passwords to their pictures when they are saved.  Anyone with access to the password may retouch that picture.  When pictures with passwords are edited, they will not be posted in new slots, but may be bumped.  This is ideal for collaborations, as frequent edits will not flood the board, causing older pictures to be deleted quickly.
+	</p>
+
+	<h3 id="u9">Public pictures</h3>
+	<p>
+		Public pictures are similar to password protected pictures, although they have no password, thus allowing any registered member to edit them.  When edited, a public picture will be posted in a new slot, leaving the original picture unaffected.  Frequent use of public images may result in a flood of new posts, so if this feature is enabled in the control panel, tight moderation, and having more than one admin, is recommended.
+	</p>
+	<p>
+		Public pictures are credited to the original artist automatically.  This feature is therefore ideal for a coloring book oekaki, where people are asked to color unfinished lineart, and a large number of similar posts is tolerated.
+	</p>
+	<p>
+		To view all public pictures on a board, a new sort option for Public Images has been added to the View menu.
+	</p>
+
+	<h3 id="u10">Adding members</h3>
+	<p>
+		If you elect to approve registrations manually (set &ldquo;Require Approval&rdquo; to &ldquo;yes&rdquo;), you will need to go to &ldquo;Admin &gt; View Pending&rdquo; to accept or reject pending members.  The number of people waiting for approval will be shown in the menu.  Note that if you switch to the automated registration system, people already in the pending members list will still have to be manually accepted or rejected.
+	</p>
+	<p>
+		If you are using an automated registration system, make sure that you have set a registration e-mail in the control panel.  When people register on an automated registration system, an e-mail will be sent to them with a verification code so they can activate their accounts.  However, you may still go to &ldquo;Admin &gt; View Pending&rdquo; to manually add or reject pending members.
+	</p>
+
+	<h3 id="u11">Giving permissions to new members</h3>
+	<p>
+		If you want to make someone a moderator, admin, or super admin, go to &ldquo;Admin &gt; Modify Permissions.&rdquo;  Use Immunity to prevent a member from being removed by the auto-kill feature if it is enabled.  Uncheck a member's General User tab to suspend their account without deleting all their pictures and posts, as deleting an account will remove all traces of that person from your board(s)!
+	</p>
+	<p>
+		It is pointless for owners to modify their own flags, as owners already have all permissions for the entire board.  If you lose your owner flags for some reason, look for &ldquo;flagrestore.php&rdquo; in the docs folder.  Edit the file so your username is at the top, copy it to the oekaki folder on your server, then run it to get your flags back.
+	</p>
+	<p>
+		<strong>It is strongly recommended that there only be one owner on an oekaki board.  The owner has the ability to access SQL information, and therefore giving anyone else owner status can potentially put your entire server account at risk!</strong>
+	</p>
+
+	<h3 id="u12">Automatic user delete (membership expiration)</h3>
+	<p>
+		Automatic User Delete may be enabled in the control panel.  This will automatically delete any member account without the immunity flag if they fail to log in within a specific amount of time, which can help keep the memberlist shorter and more current.  It will remove all pictures and comments by an affected member, however, so if you enable this feature, choose a fairly large value, such as 60 - 90 days.
+	</p>
+	<p>
+		If an artist has pictures archived, the auto kill feature will not apply to them (they will automatically be granted immunity).  An admin will have to either un-archive each picture or manually remove that member's account.
+	</p>
+	<p>
+		To only trim old lurker accounts, and not artists, enable the &ldquo; Auto Immunity for Artists&rdquo; feature in the control panel.  This will automatically assign the immunity flag to members if they draw a picture.  This is on by default, as many people who register for an oekaki never draw pictures.
+	</p>
+
+	<h3 id="u13">Archiving</h3>
+	<p>
+		To archive a picture, click &ldquo;Archive&rdquo; in the post header.  This will prevent the picture from being deleted as new pictures are posted and old ones are removed from the board.  Be careful not to archive too many pictures, as this will reduce the total number of slots usable by the board, causing new non-archived pictures to be deleted quickly.
+	</p>
+	<p>
+		Archived pictures behave just like normal posts.  They may be edited at any time with or without a password, and the original artist may delete the picture.
+	</p>
+
+	<h3 id="u14">Log file</h3>
+	<p>
+		Wacintaki 1.3.12 introduced a new log file system to help admins monitor board activity.  This log is accessible via the admin menu, and is available to all admins.
+	</p>
+	<p>
+		The log tracks admin activity (deleting files, archiving, modifying flags, etc.), as well as member activity (editing comments, deleting posts, changing passwords, etc.).
+	</p>
+	<p>
+		<strong>Log information is considered to be private, so for security reasons, do not post log information publicly.</strong>
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Troubleshooting -->
+<div id="trouble">
+	<h2>Troubleshooting</h2>
+
+	<p>
+		This section covers issues with a board that has been installed.  Installation and server issues are covered in the &ldquo;readme.html&rdquo; file that came with your Wacintaki distribution.
+	</p>
+
+	<h3 id="t1">Diagnostics screen</h3>
+	<p>
+		As of Wacintaki 1.3.6, the diagnostics screen is accessible from the main menu when logged in as an owner.  It will show various database and config settings, statistics such as space usage, as well as filesystem permissions.
+	</p>
+	<p>
+		If you are having problems where people cannot log in, or you cannot properly administrate the board, first see if the diagnostics screen shows any errors.
+	</p>
+	<p>
+		Information on the diagnostics screen is considered to be statistical data, and may be shared.  However, most data may only be changed in the control panel, and is therefore only under the control of the board owner.  For this reason, admins cannot see the diagnostics screen.
+	</p>
+
+	<h3 id="t2">Log file</h3>
+	<p>
+		Serious board errors and security violations are recorded by the log file.  If you run into a problem with your board and ask for help on the <a href="http://www.NineChime.com/forum/">NineChime forum</a>, you may be asked to submit log information.  The forum administrator will help you determine if the log information may be posted publicly, or if it must be submit to the administrator's e-mail address.
+	</p>
+	<p>
+		<strong>Log information is considered to be private, so for security reasons, do not post log information publicly.</strong>
+	</p>
+
+	<h3 id="t3">Wacintaki cannot send e-mail</h3>
+	<p>
+		Mail errors were redesigned in Wacintaki v1.1.3 so they should no longer crash the script.  Instead, they will print directions on what to do since e-mail is not working on your server.  If your server does not support sending e-mail, and you want new registrations to be automatically accepted, you should set the Control Panel option &ldquo;Require Approval?&rdquo; to &ldquo;No (Forced).&rdquo;  This will force Wacintaki to automatically approve any registration.  Otherwise, administrators will be required to approve each registration manually.
+	</p>
+	<p>
+		You might want to ask your tech support to enable e-mail support, since it allows more sophisticated moderation of the board.  Due to the potential for spam abuse, e-mail services are rarely available on free hosts.
+	</p>
+
+	<h3 id="t4">Templates won't work or don't update</h3>
+	<p>
+		<strong>Templates won't work:</strong>  This happens if you delete a default template but don't update the setting in the control panel.  Also, if you delete a template that someone is already using, their pages will show up very plain.  Tell that member to go into Edit Profile and select a new template
+	</p>
+
+	<p>
+		<strong>Templates don't update:</strong>  Wacintaki 1.4.2 includes a new template build system which only works for administrators.  If templates will not build with Wacintaki 1.4.2 or higher, check your member permissions, and then check that the CSS files in the templates folder are not locked.  The files may be locked if you copied them to the server manually with an FTP program.  If a moderator has FTP access and has uploaded a new template, the CSS version of the template must be deleted.  Templates will only build automatically for admins.
+	</p>
+
+	<h3 id="t5">Problems with Java applets (applets show red &ldquo;X&rdquo; or return &ldquo;incorrect magic number&rdquo; errors)</h3>
+	<p>
+		As of version 7.51, Java now refuses to run unsigned applets.  For artists to continue drawing on an oekaki board, they must go into the Java control panel and add a security exception for each oekaki board they visit.  This is a royal pain, but unfortunately Oracle, the company that controls Java, has made this security change permanent.  For more information, go to the <a href="https://www.java.com">Java web site</a> and do a search for &ldquo;Exception Site List&rdquo;.
+	</p>
+	<p>
+		The only effective way to bypass the whitelist requirement is to sign the applet with a CA signature.  This requires you to purchase a signature from a Certificate Authority, requires your hosting service to support HTTPS, and for you to have a reasonable knowledge of the Java security tools.
+	</p>
+	<p>
+		Some servers, particularly free hosts, will not allow .JAR files to be hosted.  If you can directly view images by typing the file paths into your web browser address bar, but trying to view the JAR files returns a 404 Not Found error, then your host cannot serve JAR files.  Try asking you host to allow JAR files, though they probably will not agree, citing security/spam concerns.  If you are not paying for hosting, you may need to seek a new host in these cases.  It may be possible to add the necessary MIME type for JAR files, but this usually does not work.  Visit the <a href="http://www.NineChime.com/forum/">NineChime forum</a> for tips on how to add MIME types to your host.
+	</p>
+	<p>
+		Some servers require HTTP referrers to view any pages other than an index.  Java does not use HTTP referrers and therefore will not function on these servers.  This happens only on free hosts, or if you have explicitly turned on some kind of &ldquo;anti-leeching&rdquo; setting in your server's control panel.
+	</p>
+	<p>
+		In rare cases, some servers may require execute permissions to be granted to folders that contain JAR files.  If the drawing applets work correctly, but the PaintBBS/ShiPainter animation viewer shows a red &ldquo;X&rdquo;, try setting the permissions of the &ldquo;shipainter&rdquo; folder to 757 or 777.
+	</p>
+
+	<h3 id="t6">Unable to post comments, edit notice and banner, chat, etc...</h3>
+	<p>
+		Some hosts have anti-spam filters in place that will not allow certain words to be posted in comments and other web page content.  If the pages refresh after you submit information, but the board does not seem to do anything and does not return any errors, your server might have a strict filter policy in place.  Many servers with comment filters will not return errors if a word match is made, and will just dump all information submit to the server.  Servers doing this are said to &ldquo;blackhole&rdquo; the data.  Sometimes 403 (Forbidden) or 404 (Not Found) errors will also be returned, and Wacintaki itself may return the message &ldquo;no mode&rdquo;.
+	</p>
+	<p>
+		Observe your site's Terms of Service and avoid using certain questionable words.  Check your host's FAQ or support forum to see if any threads explain what is being filtered.  Some links to external sites (such as PhotoBucket) may also trigger this error, so try to host as many banner and notice images on your own server as possible.
+	</p>
+	<p>
+		There is no way for Wacinaki to detect if a comment has been rejected, as the server itself simply throws away the data.  This is a difficut problem to diagnose.  This is a common problem with free hosts, and is very rare with paid hosts.
+	</p>
+
+	<h3 id="t7">config.php or dbconn.php returns &ldquo;access denied&rdquo; errors</h3>
+	<p>
+		This may occur if you've moved your oekaki from one server/folder to another and FTP'd the config files.  This causes problems because PHP is unable to write new config files if you make changes in the control panel.  CHMODing to a lower security level may or may not work, but is not a proper solution.
+	</p>
+	<p>
+		Solution:  Copy the &ldquo;reclaim.php&rdquo; script from the documentation folder into your oekaki folder on the server and run it.
+	</p>
+
+	<h3 id="t8">Pictures folder is locked</h3>
+	<p>
+		The Wacintaki updater attempts to CHMOD the pictures and templates folders to allow the storage of images, and the generation of templates.  If it fails, the &ldquo;draw.php&rdquo; file will not allow people to draw pictures until the issue has been resolved.  CHMOD these folders to 755 or 777 to use them.  If you cannot CHMOD them, ask your sysadmin to do it.  Even if you cannot CHMOD the directories, some servers will allow you to delete them via FTP and re-create them, though you will lose all contents in those directories.
+	</p>
+
+	<h3 id="t9">Animations won't play (&ldquo;Not in GZip Format&rdquo; and other errors)</h3>
+	<p>
+		If your board is hosted by an Apache server, animations may return a &ldquo;Not in GZip Format&rdquo; error.  This is usually caused by banner ads, because the way servers use advertisements corrupts animation data.  To fix this, copy the &ldquo;.htaccess&rdquo; file in the documentation folder of your Wacintaki distribution to the &ldquo;oekaki&rdquo; folder on your server.  This file isn't copied by default as some servers do not like this file and will disable your board if you use it.  Copy it only if you need it.  This file <strong>only</strong> works with Apache servers, regardless of whether UNIX/Linux or Windows is the OS.
+	</p>
+	<p>
+		If your board runs on a server using Microsoft IIS (Internet Information Services), this is a permissions issue.  IIS will not, by default, serve files without registered MIME types.  Therefore, the animation files will return a &ldquo;404 Not Found&rdquo; error, even though they are visible in the pictures folder.  If you click &ldquo;View Animation&rdquo; and the pop-up shows the filesize, but you cannot download the animation via the link, the proper MIME types must be added to your server.  <em>Only a server administrator can do this.</em>
+	</p>
+	<p>
+		The following MIME types are required for IIS servers:
+	</p>
+	<table border="1" cellpadding="5" style="margin-left: 30pt;">
+	<tr>
+	<td>PaintBBS PCH:</td><td>&ldquo;video/x-pch&rdquo;</td>
+	</tr>
+	<tr>
+	<td>ShiPainter SPCH:</td><td>&ldquo;video/x-spch&rdquo;</td>
+	</tr>
+	<tr>
+	<td>Chibi Paint CHI:</td><td>&ldquo;video/x-chi&rdquo;</td>
+	</tr>
+	<tr>
+	<td>OekakiBBS OEB:</td><td>&ldquo;video/x-oeb&rdquo;</td>
+	</tr>
+	</table>
+
+
+	<h3 id="t10">Non-administrative issues</h3>
+	<p>
+		Check the FAQ after installing Wacintaki.  It includes information for general users as well as how to get oekaki applets working, and how to install Java.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Help and Support -->
+<div id="support">
+	<h2>Help and Support</h2>
+
+	<p>
+		Please read the manual (specifically, the troubleshooting section) in the documentation folder of this distribution before seeking help.
+	</p>
+	<p>
+		Before reporting bugs, make sure you have the latest stable version of Wacintaki.
+	</p>
+	<p>
+		For help using Wacintaki or to report a bug, please visit the <a href="http://www.NineChime.com/forum/">NineChime Forum</a>.  The forum does not require registration and all questions regarding OekakiPoteto, Wax Poteto, and Wacintaki are welcome.
+	</p>
+	<p>
+		Please do not ask questions about Wacintaki on OekakiPoteto forums.  Wacintaki functions very differently compared to OekakiPoteto and you may not be able to get any help.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Newbie Guide -->
+<div id="newbie">
+	<h2>Newbie Guide</h2>
+
+	<h3 id="a1">I've determined I'm a newbie.  Now what?</h3>
+	<p>
+		Please read through the entire Newbie Guide before doing anything else.  <code>:)</code>
+	</p>
+
+	<h3 id="a2">What is covered in the Newbie Guide?</h3>
+	<p>
+		This Newbie Guide will cover most of what you need to know, including which servers can run oekaki boards, PHP, MySQL, CHMOD, FTP, and bandwidth.
+	</p>
+	<p>
+		It also covers a little about Java, which you do not need on your server, but all of your members will have to have on their computers.  Don't worry, most computers these days have Java technology built-in, or a clone like the Microsoft Virtual Machine, and Wacintaki has directions for members on how to get Java if they don't have it.
+	</p>
+
+	<h3 id="a3">What isn't covered in the Newbie Guide?</h3>
+	<p>
+		To learn how to set up a MySQL database or an FTP account for your server, take a look at the control panel for your server, or ask your system administrator for help.  Every system is different, and how much you can do depends on how the account on your server is set up.
+	</p>
+
+
+	<h3 id="a4">I don't have a web site or know where to get one.</h3>
+	<p>
+		There are a number of sites on the Internet that will help you find a free hosting service.  A starting point is to use <a href="http://www.google.com">Google</a> and search for &ldquo;php mysql hosting free&rdquo;.  You'll likely find a nubmer of sites that <em>rate</em> hosting services, rather than offer hosting.
+	</p>
+	<p>
+		You may also ask some other oekaki owners on the <a href="http://www.ninechime.com/forum/">NineChime Forum</a> for tips or recommendations.
+	</p>
+	<p>
+		Keep in mind that many free sites may severely restrict what you may upload, how scripts will behave, or what kinds of comments people may write.  Observe each hosts's Terms of Service to make sure that all the permissions you need are present.  Many sites also have advertising banners which may momentarily block certain features of your oekaki board, though you may make your oekaki's banner taller to keep menus from being blocked by ads.
+	</p>
+	<p>
+		It is recommended that you use a paid hosting service.  A service that costs even $5 a month will ususally suffice.  This ensures that there are no compatibility surprises, and you can contact a system administrator if something isn't working right (example: the Java applets cannot upload pictures, because there are upload limits in effect).
+	</p>
+
+	<h3 id="a5">What kind of web host do I need to run an oekaki board?</h3>
+	<p>
+		The essentials are a server that offers the ability to upload script files, as well as a database.  The scripting language used for Wacintaki is PHP, and the database is MySQL.  MySQL should not be confused with &ldquo;MS SQL&rdquo;, which is made by Microsoft.  PHP and MySQL are considered a pair these days, so servers that have PHP most likely have MySQL, too.  Most free web sites offer one database, and pay sites usually offer between two to six -- or more.  Only one database is required for Wacintaki.
+	</p>
+	<p>
+		You must also have the ability to access PHP and MySQL, so just because your server supports it, doesn't mean you can use it.  Sometimes you have to pay extra to use MySQL.  Ask your system administrator if you have the ability to use PHP and MySQL.  PHP requires no special setup, but you will have to create a MySQL database yourself.  This can normally be done with your web site's tools, the most popular of which is CPanel.
+	</p>
+	<p>
+		Creating a MySQL database is beyond the scope of this guide, as the procedure is usually different on each web site.  Getting SQL working involves creating a database user, creating a database, and giving that user permission to use the database.  The user name, password, and database names are what is used in the Wacintaki installer to set up the tables in the database, which actually stores the information for your oekaki board.  If you get stuck, it's best to ask your system administrator or check any available documentation to which you have access from your server provider.
+	</p>
+	<p>
+		Some servers have a tool called phpMyAdmin, which lets you create, maintain, and back-up databases.  It will not let you create a database user or password.  Ask your system administrator for help with setting up a database user and password.  phpMyAdmin is helpful for maintaining a database, but is not recommended for creating one.
+	</p>
+
+	<h3 id="a6">Will all PHP and MySQL hosts run an oekaki?</h3>
+	<p>
+		Some hosts will not allow the transmission of raw POST data (PaintBBS and Shipainter), or will not allow HTTP file uploads from any client other than a popular web browser (Chibi Paint).  Unfortunately, there is usually no way to tell if your host of choice has this disabled.  It's best to ask one of the admins on their support forum.  In the PHP scripting language, raw POST data is referred to as &ldquo;$RAW_POST_DATA&rdquo;, or sometimes &ldquo;fopen() wrappers&rdquo;.  An administrator should be able to tell you whether these methods are supported.  This is a problem with free hosts, but almost never happens with paid hosts.
+	</p>
+	<p>
+		Some hosts do not allow the hosting of Java JAR files.  It may be possible to get around this limitation by adding a MIME type for JAR files in the &ldquo;.htaccess&rdquo; file.  This is usually a problem on free hosting servers.
+	</p>
+	<p>
+		Some hosts have anti-spam filters in place that will not allow certain words to be posted in comments and other web page content.  If such a word is encountered, the server will simply pretend it never received the comment at all, and you may receive the cryptic message &ldquo;no mode&rdquo;.  This may result in comments not showing up on the board.  This may also prevent you from changing the banner/notice of your oekaki, and can cause the server to serve only a blank page.  This is a common problem with free hosts, and is very rare with paid hosts.  <a href="#t6">See the troubleshooting section for more info.</a>
+	</p>
+	<p>
+		Some PHP installations have &ldquo;safe mode&rdquo; turned on, and this will not allow pictures to be saved.  Try to determine if your host of choice uses safe mode.  Safe mode is only an issue with PHP 5.0.x or lower.
+	</p>
+	<p>
+		MySQL usually presents no problems, so long as you are allowed access to it.
+	</p>
+
+	<h3 id="a7">What is a PHP, and why do so many Wacintaki files have &ldquo;.php&rdquo; at the end?</h3>
+	<p>
+		PHP is a free scripting language designed for making complex, dynamic web sites.  All you really need to know about PHP is that your server must have it installed, and safe mode must be off.  PHP scripts end with &ldquo;.php&rdquo;, and are plain text files so they must be uploaded to a server in ASCII format with an FTP program.  Most FTP programs already know PHP files must be uploaded in ASCII mode.
+	</p>
+
+	<h3 id="a8">What is SQL / MySQL?</h3>
+	<p>
+		SQL stands for &ldquo;Structure Query Language&rdquo;, and is a standard for talking to databases.  The type of SQL database used for Wacintaki is MySQL, which is available on almost every server that has PHP.
+	</p>
+	<p>
+		Creating a MySQL database isn't terribly difficult, but how you do it depends largely on what kinds of tools are available for your server.  If you have a control panel for your server, like CPanel, you should find a way to make a database on the main page (not through an administration tool, like phpMyAdmin, which can be difficult to use).  If you don't have a control panel, ask your system administrator for help.
+	</p>
+
+	<h3 id="a9">What is CHMOD?</h3>
+	<p>
+		CHMOD is a way of modifying a file's access permissions, so it can be read, written, or run as a script.  There's more to server security than that, but CHMOD is the only command you'll have to worry about to install an oekaki board.  You pronounce it as &ldquo;shmod&rdquo; -- as one syllable that rhymes with &ldquo;clod.&rdquo;
+	</p>
+	<p>
+		Several CHMOD programs exist, though it is often used as a verb, as in, &ldquo;to CHMOD a file.&rdquo;  FTP programs have the ability to CHMOD files.  Web-based file managers offer similar functionality, but use read/write/execute flags instead of the CHMOD three-digit standard.
+	</p>
+	<p>
+		By default, all files uploaded to a server can be read by the public, but not run as scripts, or written or deleted by anyone but you.  A file's permissions are determined by a set of flags or numbers.  Although every server uses different numbers for determining a file's permissions, most FTP programs use the UNIX CHMOD standard, which uses a three-digit number.
+	</p>
+	<p>
+		Don't panic... the installation instructions tell you which numbers to use for each files, and only a small number of files must have their CHMOD number modified.  Most files are just uploaded as they are and the installer will take care of the rest, so you don't really need to know what the numbers mean.
+	</p>
+
+	<h3 id="a10">What is FTP?</h3>
+	<p>
+		FTP stands for &ldquo;File Transfer Protocol&rdquo;, and is the most important Internet standard for uploading and downloading files to and from a server.  It differs from HTTP (what web browsers use), in that you must use a password to get access to files.  Although you can use a raw FTP program from a command prompt, there are a number of free, simple programs that will handle all the hard stuff for you and just let you transfer files and CHMOD them.  A list of programs is provided in the Wacintaki <a href="#pre2">Pre-Installation</a> section.
+	</p>
+	<p>
+		All servers support FTP, and you should be able to use it, but some servers provide alternatives, like web-based file managers.  These may be used if they allow you to set file permissions (either with the CHMOD standard or with read/write/execute flags), though FTP is the most reliable method.
+	</p>
+	<p>
+		Many FTP programs can use both a www and ftp address to log into a server, so &ldquo;www.Server.com&rdquo; and &ldquo;ftp.Server.com&rdquo; should both work.  If you have trouble, try the ftp prefix instead of www.  The &ldquo;Server Port&rdquo; is almost always 21.  Other ports can be specified by the server, but 21 is the default for most servers and FTP programs.
+	</p>
+	<p>
+		Many servers have a special folder in which you need to upload files.  If you're used to uploading files with a web-based file manager, rather than FTP, you'll need to look for a public share folder which is usually called &ldquo;public_html&rdquo;, &ldquo;www&rdquo;, &ldquo;web&rdquo;, or sometimes &ldquo;home.&rdquo;  If you do not upload files in that special &ldquo;public&rdquo; folder, they are considered to be private and will not show up on the Internet.  Some servers do not have this public share folder, so if you don't see it, don't worry.  UNIX / Linux servers usually have this folder, Windows servers may not.
+	</p>
+
+	<h3 id="a11">What about bandwidth?</h3>
+	<p>
+		Technically, bandwidth is the measure of how fast you can transfer data from one place to another.  In web lingo, it is the amount of data delivered by your server to the public in a given amount of time.  Most Internet service providers measure bandwidth monthly.  If you go over your allotted bandwidth for a given month, you may be charged extra money for your hosting or your site might be disabled temporarily until next month.  The amount of bandwidth used depends how many people are using your oekaki and what they are drawing (mostly, the size of the canvas used).
+	</p>
+	<p>
+		Bandwidth is usually measured in Megabytes and Gigabytes.  One Megabyte is good for downloading 10-15 standard-sized pictures (not thumbnails).  A Gigabyte is approximately 1,000 Megabytes.
+	</p>
+	<p>
+		Wacintaki is much more efficient with bandwidth than OekakiPoteto, so if you're upgrading from OekakiPoteto to Wacintaki, you shouldn't have to worry.  If your board is hugely popular and has hundreds of members, you may need 5-10 Gigabytes of bandwidth a month.  A board with a few dozen members shouldn't use much more than 1 Gigabyte.  You should keep track of bandwidth usage in your server's control panel if your host only gives you a small amount, like 1 Gigabyte per month or less.
+	</p>
+	<p>
+		As of 2009, most free web sites will give you between 500 Megabytes to 2 Gigabyte per month.  Paid sites will generally give between 5-30 Gigabytes per month.  Be wary of sites that advertise &ldquo;unlimited&rdquo; bandwidth, as this is only for marketing purposes.  When dealing with free hosts, these &ldquo;unlimited&rdquo; sites should be avoided, as they will likely not honor promises, either for bandwidth or other services.  Paid hosts usually offer plenty of bandwith for running an oekaki.
+	</p>
+	<p>
+		Note that many chat rooms use a lot of bandwidth, so if you're having a lot of bandwidth issues, try disabling the chat room first.  Oekakis are structured to be like forums, so the lack of a chat room shouldn't be a big deal.
+	</p>
+	<p>
+		For more help on bandwidth, read the section on <a href="#usage">Using Wacintaki</a> in this manual.
+	</p>
+</div>
+
+<hr />
+
+
+
+<!-- Credits -->
+<div id="credits">
+	<h2>Credits</h2>
+	<p>
+		OekakiPoteto &copy;Copyright 2001-2003 <a href="http://www.suteki.nu">Theo Chakkapark</a> and <a href="http://marcello.cellosoft.com/">Marcello Bastéa-Forte</a>.<br />
+		Wacintaki modifications &copy;Copyright 2004-2015 <a href="http://www.NineChime.com/products/">Marc A. Leveille</a>.<br />
+		PaintBBS and Shi-Painter paint applets are &copy;Copyright <a href="http://shichan.jp/">Shi-chan</a><br />
+		OekakiBBS paint applet is &copy;Copyright <a href="http://www.oekakibbs.com">Poo</a><br />
+		Chibi Paint applet is &copy;Copyright <a href="http://www.chibipaint.com">Marc Schefer</a><br />
+	</p>
+
+
+	<fieldset>
+		<legend><strong>Wacintaki</strong></legend>
+
+		<h4>Support</h4>
+		<ul>
+			<li><a href="http://www.NineChime.com/forum/">Wacintaki and Wax Poteto Support Forum</a></li>
+		</ul>
+
+
+		<h4>Homepage</h4>
+		<ul>
+			<li><a href="http://www.NineChime.com/products/">http://www.NineChime.com/products/</a></li>
+		</ul>
+
+
+		<h4>Lead Developer</h4>
+		<ul>
+			<li><a href="http://www.NineChime.com">Marc A. Leveille</a></li>
+		</ul>
+
+		<h4>Special Thanks</h4>
+		<ul>
+			<li>Federico Arboleda (Fibonacci) for the Spanish language pack, and his extensive feedback and help with updating and debugging the language translation system.  Without his assistance, the conversion to UTF-8 would not have happened.</li>
+		</ul>
+
+		<ul>
+			<li>Kevin (kevinant@gmail.com) on the NineChime forum for updating the 1.3.x code base for localization, as well as providing both Chinese Translational and Chinese Simplified language packs.</li>
+		</ul>
+
+		<ul>
+			<li>Nadin Unbehau (Trunski) for the German language pack.</li>
+		</ul>
+	</fieldset>
+	<br />
+
+
+	<fieldset>
+		<legend><strong>OekakiPoteto 5.x</strong></legend>
+
+		<h4>Homepage</h4>
+		<ul>
+			<li><a href="http://www.suteki.nu">http://www.suteki.nu</a></li>
+		</ul>
+
+
+		<h4>Lead Developer</h4>
+		<ul>
+			<li><a href="http://www.suteki.nu">Theo Chakkapark</a> (RanmaGuy)</li>
+		</ul>
+
+
+		<h4>OekakiBBS / PaintBBS Parser / Hack Developer</h4>
+		<ul>
+			<li><a href="http://marcello.cellosoft.com">Marcello Bastéa-Forte</a></li>
+		</ul>
+
+
+		<h4>Contributors</h4>
+		<ul>
+			<li><a href="http://www.pitythefool.net">Travis Skares</a></li>
+			<li><a href="http://www.oekakicentral.com">Uriel</a></li>
+		</ul>
+
+
+		<h4>Special Thanks</h4>
+		<ul>
+			<li><a href="http://filb.greenchu.de">Filb</a> for his BIG help in pointing out to me language pack mis-translations and providing a German language pack for OekakiPoteto.</li>
+			<li><a href="http://home.mymint.pe.kr">MYMINT</a> for producing a Korean language pack.</li>
+		</ul>
+
+
+		<h4>Donors</h4>
+		<p>
+			Big thanks to you donors! Without your generous donations, 5.x would have never seen daylight! More porn for RanmaGuy! Yay!
+		</p>
+		<ul>
+			<li><a href="http://mixelmagic.com">Mixel</a></li>
+			<li><a href="http://www.brinkofinfinity.com">Jennifer Magee</a></li>
+			<li><a href="http://www.oekakicentral.com">Uriel</a></li>
+			<li>Lourdes T Huibonhoa</li>
+			<li>C. Brock</li>
+		</ul>
+	</fieldset>
+</div>
+
+
+
+<!-- Footer -->
+<div id="footer">
+	<h1>&nbsp;</h1>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1466 @@
+=================================
+Wacintaki Poteto Revision History
+=================================
+
+=====================================================================
+v1.6.7 - February 5, 2019:
+
+	CHANGES:
+	- Refactored deprecated each() in comment.php to be PHP7.2 compatible.
+	- Made default date formats in installer compatible with MySQL 8 strict mode ("0000-00-00" no longer allowed).
+	- Installer and updater now use global rather than local debug flags.
+
+=====================================================================
+v1.6.6 - May 20, 2018:
+
+	HOTFIX 5/21/2018:
+	- Forgot to add ChickenPaint as a datatype option to the upload script.
+
+	CHANGES:
+	- Changed some logic in boot for user agent detection.
+	- Removed lazy compress feature for popular browsers (out of date).
+	- Removed detection for obscure PHP bug that returns TRUE rather than a MySQL link (presumed obsolete).
+
+	BUGFIXES:
+	- Fixed edit variables not being nullified correclty when editing someone else's picture.
+	- Fixed leftover short PHP tag in install.php.
+
+=====================================================================
+v1.6.5 - January 23, 2018:
+
+	BUGFIXES:
+	- Fixed "wactest" variable and "PASSWORD_STRENGTH" constant being undefined when running the installer.
+	- Changed detection of OekakiPoteto v4.0 in updater to avoid undeclared variable warning.
+	- Login script will now return an error if the user database was not created properly.
+	- Changed FAQ to prevent potential warnings with PHP 7.2 when counting the number of questions and answers.
+
+=====================================================================
+v1.6.4 - August 13, 2016:
+
+	HOTFIX 8/16/2016:
+	- Fixed HTTP_USER_AGENT throwing an undefined variable error in boot.php.  I thought PHP always populated this.
+
+	CHANGES:
+	- Wacintaki supports PHP 5.2 again (tested).
+	- NiftyToo autolinking is now more robust and has improved handling of punctuation.
+	- Some SQL errors are now logged to the syslog instead of the internal log system.
+	- Changed usage of func_get_args() in common.php to aid PHP backward compatibility.
+	- Added hacks setting to disable support for all Java applets (will change to cfg setting later).
+
+	BUGFIXES:
+	- NiftyToo autolinking fixed for HTTPS protocol.
+	- Fixed undefined $quiet_mode variable in db_layer.php (broken in 1.6.0).
+	- Fixed undefined $outerrow variable in profile.php.
+	- Fixed undefined $import_info variable in comment.php.
+
+	FEATURES:
+	- Added support for ChickenPaint HTML5 app.  Woohoo!
+	- Added HRTimer support for Windows servers (requires HRTimer for PHP and must be manually enabled in db_layer.php).
+
+	EXPERIMENTAL:
+	- mail() wrapper now sets "Return-path" so automatic mails that bounce should return to the admin e-mail address, not the automailer.  Not all hosts or recipient clients support this.
+
+=====================================================================
+v1.6.3 - August 21, 2015
+
+	CHANGES:
+	- Wacintaki now requires PHP 5.3 or higher.
+	- Updated NiftyToo (BBCode) system to be PHP7 compatible:
+		Replaced deprecated preg_replace /e modifier with callbacks.
+		Removed $mode function parameter as it was always > 0.
+	- Performance improvement for NiftyToo system (about 3-4 times faster).
+	- Performance improvements for language translation functions.
+	- Support for the "_target" HTML attribute in autolinks dropped.
+
+	BUGFIXES:
+	- Fixed database layer not printing stack trace correctly when displaying SQL errors (developers only).
+	- Board now exits immediately after a database connect error.  Language files require DB escaping, which does not work without a connection.
+	- NiftyToo now handles the [s] BBCode tag corectly, and this tag is now case insensitive.
+	- Fixed NiftyToo so autolinked URLs may contain apostrophes.  Many valid URLs still will not work.
+	- Moved password field in register.php to avoid the Firefox password auto-complete bug.
+
+=====================================================================
+v1.6.2 - August 7, 2015
+
+	CHANGES:
+	- Small cleanup to parameters array with PaintBBS/ShiBBS applet capture code.
+	- Adjusted report_err() hack to exclude HTTP_RAW_POST_DATA.
+	- Cleaned up some of the JavaScript to work in strict mode and fixed a bitwise operator bug.
+	- Finally fixed the NoteBBS gradient tool so it will reset the drop-down values correctly after applying a gradient.
+
+	BUGFIXES:
+	- User-selected templates and languages were not being applied correctly.  Globals are bad, m'kay?
+	- Applet capture code would return untranslated error messages if no picture data was received.
+
+	FEATURES:
+	- NoteBBS gradient tool now has color previews.
+	- Board now recognizes (but does not support) WebP image uploads.  PHP does not support WebP natively, so I have to complete my own WebM parser.
+
+=====================================================================
+v1.6.1 - April 14, 2015
+
+	BUGFIXES:
+	- Fixed problem with mysqli_free_result() throwing a notice while updating the picture cache.
+	- When changing the WIP status of the latest picture, the picture cache would sometimes be updated twice.
+
+=====================================================================
+v1.6.0 - March 1, 2015
+
+	NOTES:
+	- Wacintaki has not reached EOL and I do intend to maintain it, but I doubt I'll do much more overhauling as Java applets are effectively dead and there's little point to extending Wacintaki.
+	- If a good HTML5 paint app shows up, Wacintaki will be recoded from the ground up and probably renamed.
+	- 1.6.x will be the last branch to support mods and custom templates/translations.  Future versions will cleanup all the global, config, and database messes.
+
+	CHANGES:
+	- Several modernizations, while respecting things that might break mods (such as globals and template controlers).
+	- Some syntactic cleanup, such as removing trailing "?>", fixing capitalization, alignment issues, etc.
+	- boot.php has had most of its globals cleaned up and organized.
+	- New $glob[] array for program state and config values NOT found in config.php file.
+	- $user and $flags arrays now cascade, allowing for cleaner defaults.
+	- Database layer now uses mysqli exclusively.  The mysql_* functions have been deprecated since PHP 5.5.
+	- Database layer error reporting and debugging has been much improved.
+	- Finally using SQL LEFT JOINs for avatars on index page.  Cuts number of SQL queries roughly in half.
+	- Hacks entry FORCE_MYSQL_API removed (hacks file is still 1.2.0 compatible).
+	- Replaced badly-written PHP version detection with version_compare().
+	- Microtime handling improved with proper string casting.
+	- Replaced $mailbox_status[] array with constants.
+	- Updated all applet code to eliminate $OekakiU and updated boot to salvage login details from multiple sources.
+	- Fixed missing 'all' flag in parse_flags() for legacy reasons.
+	- Removed $header_extra_metatags (only used in WaxPoteto).
+	- New password hashing using Blowfish if available and Extended DES as a fallback.
+	- Oekaki automatically updates old password hashes to the strength defined in boot.php.
+	- Random salt generator for passwords.  Uses mcrypt, openssl, or /dev/urandom/ if available and a decent fallback for Windows.
+	- Password detection no longer relies on config salt, so salt may be changed.
+	- Salt removed from installer and is now set automatically during installation (and is virtually useless).
+	- Retouching password-protected pictures now uses a standard hash format with the salt intact.
+	- Removed blinking mailbox hack (as most browsers no longer support it) and "stupid name" hack.
+	- report_err() now includes "error.php" rather than using an HTTP redirect.  This solves many technical and usability problems compared to passing error messages via CGI.
+	- Added experimental "X_DISABLE_REPORT_ERR_HACK" to boot to disable the report_err() hack.  Use this if your custom header isn't working with the new error reporting.
+	- Removed multiple tries from applet picture save code -- potential DDoS vector.
+	- Debug config no longer overlaps with NineChime.com specific hacks.
+
+	BUGFIXES:
+	- age_to_date(): fixed problem with $_GLOBALS being confused with $GLOBALS.
+	- Fixed a non-destructive issue with update_rc.php where a recode that timed out may restart at the beginning rather than resuming.
+	- Fixed problem where people may not be able to edit comments after retouching another artist's picture and a password is set.
+	- Fixed problem with comment editor clearing a non-public password if the original owner retouches the picture.
+	- Fixed error message in image uploader not reporting max dimensions upon rejection.
+	- Fixed logic error with cache management causing language files to rebuild on every page view.  Wacintaki should be a bit faster, now.
+
+	FEATURES:
+	- Now PHP 5.0 native.  Many PHP 5.3+ enhancements.  PHP4 fallback code removed.
+	- Diagnostics page now shows avatar stats as well as deprecated salt setting and database encoding state.
+	- Database log and statistics table for when board is in debug mode.
+
+	"U-DO-IT":
+	- I've done a lot of cleanup of globals and other nasty stuff, but many issues remain as I wish to remain friendly to mods and old templates.  Be aware that a diff will show radical changes, but little has actually been recoded.  Check the top of boot.php for most of the rearranged stuff.
+	- Use the $glob array for anything you need to make global, local vaiables for everything else.  $cfg, $user, $flags, and $datef are still distinct singletons.
+	- Password handling has radically changed.  Make sure to use the new functions in common.php to check hashes.  Do NOT use $cfg['salt'] as it has been obsoleted and using fixed salts is bad practice.
+
+=====================================================================
+v1.5.15 - September 28, 2014
+
+	CHANGES:
+	- Fixed PHP error if web client returns an invalid or corrupt Accept-language header.
+	- Update to ShiPainter.  This is a hotfix version that has the same version number as the previous version.
+
+=====================================================================
+v1.5.14 - June 8, 2013
+
+	HOTFIX 6/20/2013:
+	- Installer will now set rules.php correctly.  This has been an overlooked problem for a while.
+
+	CHANGES:
+	- Added some extra database debugging to updater.
+	- Changed updater error reporting for adding the 'edited' column in 555->556 (should be 'editedby').
+	- Changed "MSN" field in profile to "Skype".
+	- Reduced the anti-spam setting for sending e-mails during registration.
+	- Fixed bug with registration language not being set on some PHP installations.
+	- Fixed registration with blank e-mails.
+	- Workaround in profile editor for Firefox autocomplete bug.  Firefox will automatically add a username into any field preceding a password field (in this case, the IRC Channel).
+	- Fixed password recovery allowing blank password.
+	- Updated maintenance e-mails to include the name of the oekaki, rather than "Oekaki" and "Automated Deletion" and other scripts names.
+	- Fixed undefined DISABLE_EMAIL_CONFIRMATION error in UTF-8 mailer if an old hacks file is used.
+
+	FEATURES:
+	- Finally added admin e-mail notification when a person registers and manual approval is enabled.
+
+=====================================================================
+v1.5.13 - October 20, 2012
+
+	CHANGES:
+	- Filetype recognition will now recognize PSD files correctly (previously broken).
+	- Login redirect on IIS servers will now display UTF-8 properly.
+
+	FEATURES:
+	- Finally added GZip compression which should help considerably with bandwidth and download speed.
+	- Added hacks options to disable and configure GZip compression.
+	- Superadmins and owners may now change the user names of accounts.
+
+=====================================================================
+v1.5.12 - May 4, 2012
+
+	CHANGES:
+	- Registration rejection will now correctly show the registration expiration value, not the autokill value.
+	- Fixed strange bug where picture titles consisting of all numbers would fail to submit.
+
+=====================================================================
+v1.5.11 - April 25, 2012
+
+	CHANGES:
+	- Fix for the latest picture log in resource folder not updating correctly with certain edits.
+	- Slight corrections to Spanish translation, courtesy of Federico Arboleda.
+	- Made sanity checks in functions.php file slightly longer and return more specific error messages.
+
+=====================================================================
+v1.5.10 - December 19, 2011
+
+	CHANGES:
+	- Security fix on comment screen for pictures without passwords.
+
+	FEATURES:
+	- Banner/Notice editor now includes a default button to restore original text.
+	- Banner editor now includes button to add properly formed <img> tag.
+
+=====================================================================
+v1.5.9 - November 13, 2011
+
+	CHANGES:
+	- Finally fixed problem with animation viewer showing corruption with some AMD video cards under WindowsXP.
+	- Fixed undeclared guest variables and missing URL field in chatbox.php.
+	- Fixed cookie handling for guest comments in chat room.
+	- Fixed installer to make MySQL 5.5 happy (removed display width suffix on TIMESTAMP).
+	- Added "Erase" and "Add Banner Image" buttons to editnotice.php.
+	- Updated the manual to include information about Java and JAR file issues.
+	- Updated .htaccess files in documentation folder to help with JAR file issues.
+
+=====================================================================
+v1.5.8 - September 6, 2011
+
+	CHANGES:
+	- Updated Traditional Chinese language pack, thanks to Kevin (http://3eye.ws/blog/).
+	- Fixed guest language defaulting to English, and now the oekaki default will be used.
+	- The online list will no longer show the error script (error.php) as a location.
+	- Rewrote the search whitelist on the memberlist to allow for future expansion as well as language translation of search results.
+	- Fixed the memberlist not searching by template name.
+	- Spanish translation slightly updated, courtesy of Federico Arboleda.
+	- Diagnostics page now calculates animation percentage correctly.
+	- Database layer now supports field names in db_result().  Works ONLY with mysql, not mysqli.  Use ONLY for legacy support!
+	- Fixed problem with debugger in updater ($wactest).
+	- Fixed "Username" showing up twice in the "sort by" list.
+	- The profile editor will now ignore the adult flag if the submitted age is less than MIN_AGE_ADULT.
+
+	FEATURES:
+	- New latest picture log in resource folder allows blog owners to track latest updates to the oekaki.  Needs some more work and translation.
+	- New hacks file option to force a specific MySQL API.  Useful for when you need to import database code from another part of your web site into the banner/notice/etc.
+
+=====================================================================
+v1.5.7 - April 23, 2011
+
+	CHANGES:
+	- Reworked logic for flag and rank modification, and made some improvements to the drop-down menu in modflags.php.
+	- The owner may only change his or her own rank if there is more than one owner.
+	- Restored compatibility with PHP 4 (array_combine() is PHP 5 only).
+	- Fixed missing 'o_niftyusage' variable in language file.
+	- Fixed '\n' showing up in index when displaying "(Original by {username})".
+
+=====================================================================
+v1.5.6 - April 6, 2011
+
+	CHANGES:
+	- Huge changes to language files.  Edited multiple language references.
+	- Moved some <strong> and <em> tags into language files, to help readability of logographic languages.  Still lots of work to do.
+	- Fixed help messages for multiple WIPs in comment.php.
+	- Board no longer sends HTTP 403 as an anti-spam measure (still sends 404 for expired form data).
+	- Removed mod version number from boot.php.
+	- Removed newest/oldest pictures from diagnostics page.  Obsolete with new sorting system.
+	- Manual registration approval will no longer return an e-mail warning if e-mails are turned off in the cpanel.
+	- Fixed installer so language drop-down menu has a "Submit" button and no longer requires JavaScript.
+	- The online list and the log now use language translation properly.
+	- Fixed undefined index issue when modflags.php sends checkbox values to functions.php.
+	- Cleaned up error reporting in boot.php to use HTML rather than plain text.
+	- Fixed question HTML links in FAQ for administration section.
+	- Finally disabled DNS host lookup by default.  Almost nobody needs it, and it can severely affect load times for some members.
+	- ENABLE_DNS_HOST_LOOKUP added to hacks file to re-enable DNS lookup.  Use with caution.
+	- USE_UTF8_ENGLISH removed from hacks file.
+	- Rewrote the FAQ, and removed the Firefox download button.
+	- Updated links in FAQ.  JTablet now available for Mac and Linux.
+	- Rewrote Niftytoo usage directions.
+	- Fixed problem with procedural-style MySQLi string escapement not finding the link resource.
+	- Fixed db_error() backtrace to be strict compliant (cannot use next() with function references).
+	- db_error() and db_history() now store more than one value.
+	- Fixed db_close() to give a proper return value.
+	- Board will now send e-mails and mailbox messages in a member's chosen language.
+	- Fixed language system so translations will not be self-modified.
+	- Language translation system now handles embedded substitutions.
+	- Fixed a few undeclared variable issues with $user.
+	- Memberlist will no longer search for e-mails members have masked (the memberlist would always hide results, though).
+	- Fixed error reporting in viewani.php to not check the size of missing animations.
+	- Fixed undeclared parameters in paintbbsget.php and shiget.php.
+	- Fixed login to give more specific error messages.
+	- Fixed updater not exiting properly ("w_exit;" instead of "w_exit();").
+	- The chat system finally sorts messages top to bottom, rather than bottom to top.
+	- Quoted text in comments will now parse correctly so blockquotes will always be closed.
+	- Fixed how Java command line options for DirectX are being passed through the applet parameters.
+	- Logging into the oekaki will now remove the guest language cookie.
+	- Added new database columns: "edited" (date), "editedby" (username), and "uploaded" (int).
+	- Fixed an XSS vulnerability with the memberlist.
+	- Fixed some HTML encoding issues with stored URLs.
+	- The installer will no longer complain about duplicate columns when installing multiple boards.
+	- Board will convert ISO-8859-1 passwords to UTF-8 passwords.  Note: Big5 passwords will need to be reset.
+
+	FEATURES:
+	- New Spanish translation, courtesy of Federico Arboleda.
+	- New German translation, courtesy of Nadin Unbehau (Trunski).
+	- Overhauled language usage, substitutions, read order, blocking, and punctuation.
+	- Wacintaki will now automatically serve a guest's preferred language based on HTTP_USER_AGENT.
+	- All language packs now use UTF-8.
+	- Updater will recode old databases from ISO-8859-1 (Latin1) to UTF-8.
+	- Date formats, including drop-down menus, are now controlled by language files (needs some work).
+	- Installer allows admin account to have a different language than the oekaki.
+	- Language select drop-down menu now sorts properly and shows both native and English names.
+	- New lockout for updater: automatically enables maintenance mode and requires login.
+	- Finally added a caching system.  Currently only used for language names.
+	- Added new language packs for ShiPainter: Catalan, Italian, and Spanish.
+
+=====================================================================
+v1.5.6 Public Beta - March 27, 2011
+
+	HOTFIX 3/28/2011:
+	- Updater will now print version number correctly when detecting the most recent version.
+	- Fixed "NoteBBS" and "ShiBBS" not being translated properly on the online list.
+
+=====================================================================
+v1.5.5 - December 30, 2010
+
+	CHANGES:
+	- New config file format.
+	- "hacks.php" options CUT_EMAIL and ALLOW_ADDITIONAL_WIPS moved to config file.
+	- Fixed bug in viewani.php where a missing animation number would not return an error message.
+	- Fixed "flase" param spelling error in viewani.php.  Doesn't appear to affect anything, though.
+	- Board will not send e-mails when flushing accounts over 1 year old.
+	- Fixed avatars not being deleted with auto kill feature (was fine in Wax Poteto, though!)
+	- HTML meta data now shows current date instead of oekaki release date.
+	- Added many new entries into language files, including error messages from "functions.php".
+	- Streamlined installer a bit.
+	- Corrected "unsupported version" bug in updater when trying to verify a successful update.
+	- Updated all repair scripts in documentation folder.
+
+	FEATURES:
+	- Private oekaki feature now blocks most content unless a person registers or logs in.  Changes mostly to "header.php".
+
+=====================================================================
+v1.5.4 - December 17, 2010
+
+	CHANGES:
+	- Changed user cookie and applet parameters from username to userID.  Helps with moving board towards full UTF-8 support.
+	- Removed PHP unserialize() function from draw preferences.  Not secure when used with user input.
+	- Fixed smilies code so smilies at the start of a multi-line comment will now work correctly.
+	- Fixed duplicate HTML form name in header.php.
+	- Mass mail will now only show active members if there are more than 15 members.
+	- ShiPainter now tests for and fixes broken animations due to linefeed corruption.  Some servers do not use good methods for detecting text.
+	- Updater now uses new database layer.  Helps fix boards broken by server updates.
+	- Reworked updater warnings and error reporting.
+	- Fixed local links and e-mails not working correctly with error.php.
+
+	FEATURES:
+	- Guests may now choose a language setting (stored in a browser cookie).
+	- Guest language feature may be disabled in hacks file, or if there is only one language available.
+
+=====================================================================
+v1.5.3 - Sept 4, 2010
+
+	CHANGES:
+	- Board now forces the default template if there is only 1 active template.
+	- Fixed one missing language translation in the profile editor.
+	- Installer shows correct language and translator in the footer.
+	- Custom search by picture title (not yet implemented).
+
+=====================================================================
+v1.5.2 - July 18, 2010
+
+	CHANGES:
+	- Finally fixed broken Chinese Traditional language pack (encoding corruption).
+	- Fixed incorrect count of active members in memberlist.
+	- Mass mail can now send messages only to active members (default setting for activity is 6 months).
+	- Active login status can be changed in hacks file.
+	- Changed log message when filetype errors occur.  Occasional errors mean a corrupt upload (client issue).  Frequent errors mean there's a problem with the server.
+	- Fixed incorrect "$lang['realname']" entry for English language pack.
+
+=====================================================================
+v1.5.1 - April 18, 2010
+
+	NOTES:
+	- "Modders" don't have to update to the new applet screens.  The footer is for free server accounts that require ads.
+
+	CHANGES:
+	- Upload screen now shows same WIP reminders as Draw screen.
+	- Changed MySQLi database detection.  Even if MySQLi is available, it doesn't mean PHP is configured properly to use it.
+	- Fixed undefined MySQLi contants when the extension is not available.
+	- Improved db_result() so it handles the native offset pointer.  MySQLi and MySQL should now behave identically.
+	- Fixed dimensions not being checked when uploading files (not the applets).
+	- Updated control panel subtext regarding stored pictures.
+	- Disk space usage on diagnostics page is a bit more accurate.
+	- Added footer to paint applet screens to help people with ad-sponsored hosts.
+
+=====================================================================
+v1.5.0 - March 4, 2010
+
+	KNOWN ISSUES:
+	- Chinese language packs temporarily suspended.  Character encoding has become corrupt over the last few versions of Wacintaki and needs to be cleaned up.
+
+	CHANGES:
+	- New database layer supports updated MySQL 5 authentication (mysqli).  MySQL compatibility should now be better in the future.
+	- New database error reporting makes diagnostics and installation easier.  Moving towards PostgreSQL support.
+	- Moved regular maintenance into "maint.php".  Todo: refactor into a cron manager.
+	- Fixed default password issue with uploader and strict syntax with MySQL 5.
+	- Fixed very strange problem with duplicate names being added to online list if pages are refreshed very quickly, particularly with the mailbox (?!)
+	- Removed some "windows-1252" charset codes from comments (PHP may output garbage even when codes are commented out).
+	- New debug added to paintsave which helps to identify upload issues on servers with bizarre security policies.
+	- JavaScript is no longer needed for pop-up windows (such as the online list).
+	- Language selector will no longer show index files if one is in the language folder.
+	- Fixed two undefined index issues with the avatar editor.
+	- Simplified updater, and fixed a few issues with version detection for 1.3.x updates.
+
+	FEATURES:
+	- PHP 6 compatible (fixed NiftyToo and short tag support, plus userflag parsing).
+	- New function-based language system improves translation and prevents missing translations.
+	- Language system now supports basic plurals, as well as the singular zero cluase.
+	- Editing old comments now redirects to the correct page/post.
+	- Cleaned up guest IP/Host output so it can be copy/pasted to a text file.
+	- Picture recovery now shows friendlier dates and time remaining until WIP deletion.
+	- Comments now allowed in ban list, to help identify users and reasons for banning.
+	- SQL direct call script makes tech support easier (removable, available to owner only).
+
+	"U-DO-IT":
+	- For a tool to convert old language files to the new format, check the NineChime products page.
+	- Language usage as follows:
+		Using the new t() function:
+			echo "<strong>{$langop_something}</strong>\n";
+			echo '<strong>'.t('something')."</strong>\n";
+
+		The tt() function replaces echo() and short PHP tags:
+			<?=$langop_something;?>
+			<?php tt('something');?>
+
+		Don't use tt() when concatenating:
+			<?php echo t('something').t('something_else');?>
+
+		Substitutions:
+			// 'report_vars' = "There are {1} of type {2} available."
+			t('report_vars', $number, $name);
+
+		Easily change the order of substitutions in the language files:
+			// 'report_vars' = "Type {2}: {1} available."
+			t('report_vars', $number, $name);
+
+		Plurals:
+			// {p?x:y} where p is the parameter number, x is singular, and y is plural
+			$lang['something'] = '{1} {1?member:members}' found.';
+			$lang['something'] = 'There {1?is:are} {1} {1?value:values} found.';
+			$lang['something'] = 'Set {1} {1?value:values}' on {2} {2?system:systems}';
+
+			// Embedding WILL NOT work:
+			$lang['something'] = 'There {1?is {1} value and it is:are {1} values and they are} useless.';
+
+			// Simplify sentence structure to avoid gotchas.
+
+			// Zero can be set to singular in language config (example: French uses singular zero)
+			$lang['cfg_zero_plural'] = 0;
+
+=====================================================================
+v1.4.3 - September 7, 2009
+
+	HOTFIX 1/3/10:
+	- Fix for code that tries to disable magic quotes.  Some servers have this disabled when they force magic quotes to be off.
+
+	CHANGES:
+	- Applet code now disables DirectDraw support with Java.  Hopefully, this will fix the zoom, erase, and Bezier curve problems with PaintBBS and ShiPainter.
+	- Fixed admin edits not disabling "Edited On" text when editing pictures (comment edits were fine).
+	- Reducing picture storage now removes more pictures immediately (up to 500 at a time).
+	- Deleting safety saves no longer reduces a member's picture count.
+	- Adjusted for bug in Firefox 3.5 where windows smaller than ~680 pixels will have no scrollbar.  Windows are 700px minimum for Mozilla browsers.
+	- Updated the manual.
+
+	FEATURES:
+	- Default subject line when e-mailing admins.
+	- Finally, the board logs IP addresses properly when people register/login (database updated).
+
+=====================================================================
+v1.4.2b - July 31, 2009
+
+	CHANGES:
+	- Fixed updater having to run after fresh installation.
+
+=====================================================================
+v1.4.2 - May 5, 2009
+
+	HOTFIX 6/4/09:
+	- By request, some of the max values allowed for control panel settings have been increased.
+
+	CHANGES:
+	- Memberlist now filters out blank results when calculating search totals.
+	- PHP code in notice now limited to owners by default.  May be enabled for superadmins (hacks.php file updated).
+	- Reducing the number of pictures stored now requires confirmation.
+	- Fixed new window opening when submitting chat comments.
+	- Post times for current day now added to chat room.
+	- Fixed username escape issue with mass mail.
+	- Fixed missing </tr> in comment.php.
+	- "Stupid Name" hack now supports HTML code.
+	- "Special" section of profile viewer now shows admin/general flags more clearly.
+	- Age code now shows birthdays properly (USA Eastern Standard Time only).
+	- Updated multiple files to accommodate new moderator account.
+	- Fixed a few more undefined variables (functions, mailsend).
+	- UTF-8 override added to hacks file.  Use with caution, as the paint applets cannot use usernames with UTF-8 characters!
+
+	FEATURES:
+	- At long last, all post comments now show up on the comment screen.
+	- Lytebox support.  It should be easy to switch to Floatbox, Slimbox, or your Lightbox clone of choice.
+	- Profile option to enable/disable Lytebox (requires database update).
+	- New moderator account, most actions logged.  Permissions include:
+		Edit picture info
+		Edit comment
+		Delete comment
+		Upload
+		Lock thread
+		Post in locked thread
+		WIP picture (not delete)
+		Adult flag toggle
+		Bump
+	- Draw screen now remembers settings in a web browser cookie.
+	- Window close confirmation helps prevent applets from being closed accidentally.
+	- Templates now rebuild automatically if the template is newer than the CSS (admin logins only).
+
+	ERRATA:
+	- Added new JNLP Java resource files to help fix new Direct3D slowdown issues with Java 1.6.0_12.  Unfortunately, they can cause problems with canvas restoration, and therefore are not being enabled by default.  Copy them from the documentation folder to the oekaki folder if you want to use them to speed up Java.
+
+=====================================================================
+v1.4.1 - August 12, 2008
+
+	CHANGES:
+	- Fixed Chibi Paint layers file not always being read into applet with regular image.
+	- Old Chibi Paint layer files will now be removed from the pictures folder if not updated when retouching.
+	- Profile viewer will now hide location and chat information from non-members.
+	- Slight XHTML update for URLs shown in profile viewer.
+
+=====================================================================
+v1.4.0 - August 2, 2008
+
+	CHANGES:
+	- Chat now prints guest IP/host only for admins.
+	- Chat comments limited to 200 characters.
+	- Slight cleanup of code layout in memberlist.
+	- Memberlist now properly encodes web site URLs.
+	- Fixed picture recovery not properly deleting WIP post files.
+	- Changed subject line from nifty2_convert() to w_html_chars() in mailread.php.
+	- Fixed XSS issue with language and template selections.
+	- Fixed url encoding of JavaScript parameter in mailout.php.
+	- Changed HTML filtering in functions to prevent double-encoding of comments.
+	- DB row count added to editpic.php and comment.php.
+	- Fixed missing <head> in editavatar.php.
+	- Fixed missing <tr> in niftyusage.php.
+	- Fixed leftover </font> tag in addusr.php.
+	- Cleaned up NiftyToo markup system to handle HTML encoding without breaking URLs.
+	- Corrected anti-spam test to handle/count BBCode links.
+	- Owners can now change profiles without having to change age statement.
+	- Birth year capped to > 1900 || < 3000.
+	- Fixed PaintBBSCallback() issue with noteBBS.php and paintBBS.php.
+	- Minor NoteBBS JavaScript cleanup.
+	- Rearranged order of applets in draw.php and upload.php.
+	- Removed some error masking in paintsave.php to help diagnose GDlib problems with large picture uploads.
+	- Fixed userflag assignment when an admin edits another user's profile.
+	- Increased cutoff in clean_picture_slots() from 10 to 30.
+	- Update to paintsave.php to handle Chibi Paint layers file cleanup (incomplete).
+	- Fixed old bug where picture recovery could not play animations.
+	- Owners may now change permissions of other owners directly in modflags.php (for diagnostic reasons).
+
+	FEATURES:
+	- The Chibi Paint layers file is now supported, which makes retouching much easier.
+	- Diagnostics screen now shows statistics about pictures folder, including space used.
+	- Board now allows custom background color with thumbnails (in the hacks file) so images with an alpha channel won't be black.
+	- NiftyToo now works more like BBcode, so you can use both '=' and ':'.
+	- NiftyToo now supports quoted, big, and small text, and double brackets.
+	- Chinese simplified language pack fully updated by Kevin (http://3eye.ws/blog/).
+	- Current picture now added to editpic.php.
+	- Save routine now checks for truncated PNG files.
+
+=====================================================================
+v1.3.14 - July 6, 2008
+
+	Hotfix 7/12/08:
+	- Fixed major problem with URL encoding that prevented some people from posting pictures with PaintBBS or ShiPainter.  These applets are not compatible with encoded URLs.
+	- Corrected updater so verification of 1.3.12 database completes without printing version conflict error.
+	- Changed memberlist to restrict number of searchable fields in database.
+	- Default sorting in memberlist fixed.
+	- Memberlist now supports sort by e-mail and rank.
+
+	CHANGES:
+	- Corrected a number of old HTML/CSS compliance issues w/HTML Tidy.
+	- Rewrote all applet parameters to be properly URL/HTML encoded.
+	- Fixed excess table tags and missing alt attributes in profile viewer.
+	- Fixed table parsing bugs in memberlist, mailbox, and mailout.
+	- Fixed longstanding encoding bug with canvas imports and public retouch.
+	- Added more bad characters to the badChars() filter.
+	- E-mail address and URL filters integrated into w_gcp().
+	- Removed logging of empty functions.php requests.
+	- Closed several XSS attacks.  The code is now pretty clean, thanks to the XHTML rewrite.
+	- Size cap for comments and titles, so pages won't break.  Needs to be expanded.
+	- Stand-alone scripts (which do not use header.php) now set charset server headers.
+	- Fixed log issue when archiving pictures.
+	- Spam link count marker changed from "h://" to "://" to allow for video links and SSL.
+	- Updated the manual and readme files.  Fixed some links, added Chibi Paint info.
+
+	FEATURES:
+	- Chibi Paint support!  Yes, a new applet!  Caution: some people are having trouble when using JTablet with Chibi Paint.
+	- Wacintaki is now XHTML Transitional, so Lightbox/Slimbox mods are supported.
+	- Purge button added to View Pending list.
+	- Confirmation when deleting comments on index page.
+	- Hacks override for comment delete dialog.
+
+=====================================================================
+v1.3.13 - June 8, 2008
+
+	CHANGES:
+	- Started converting board to be PHP6 compatible.
+	- Draw screen shows proper default dimensions with custom canvas previews.
+	- Header now shows current artist being searched (previously omitted as an interface feature).
+	- w_exit() wrapper for exit() closes database if open.
+	- Log now tracks self-bumps on retouch.
+	- Added more testing for troublesome passwords when editing profiles.
+	- Removed old PHP "MAX_FILE_SIZE" flag from animation uploader, since it is a global flag and doesn't really do anything.
+	- Fixed some HTML encoding issues with the pending registration list, memberlist, and profile viewer.
+	- Updated the Wacintaki manual with some new info and clarifications.
+	- Verified updater to handle Wax 5.6.0 updates to Wacintaki.  Wax and Wacintaki now have identical config/db/hacks resources.
+	- Fixed artist and sort encoding when using drop-down menus.
+	- Closed several XSS attacks.
+	- Removed logging of empty functions.php requests.
+	- Removed new_chat system.  New browsers won't work with it anymore due to HTML parsing issues.
+
+=====================================================================
+v1.3.12 - May 5, 2008
+
+	CHANGES:
+	- New hacks.php file (still 1.2.0 compatible).
+	- Picture upload now works properly with multiple WIPs.
+	- Picture count now works correctly when deleting WIPs.
+	- Adjusted humanity test so first option (the default) will never be the correct answer.
+	- Corrected JavaScript error with Maximize applet (no CSS units).
+	- Small change to "comment.php" to allow control over how many smilies are displayed.
+	- Updater cleaned up, fixed a very old version detection bug.
+	- Updated error reporting when trying to post a comment on a picture that does not exist.
+	- Updated ban code to ignore hosts file if host lookup fails or is disabled.
+	- Improved reminders when members have more than one WIP saved.
+	- Confirmation for install and update script removal.
+	- Changed variable reference usage in common.php and paintsave.php.
+	- Fixed cookie corruption issue when changing password in profile editor.
+	- Finally fixed the "new window" code so pop-ups have toolbars, since Firefox's tabbed browsing feature causes flow issues.
+	- Changed cookie/login handling in paint capture code (again) to help prevent PHP errors from interfering with return codes for applets.
+	- Members may now upload animations if they have animation access.  Previously, only admins could upload animations.
+	- 404 returned when posting comment on non-existent picture to help kick spambots.
+	- Updated the Wacintaki manual to cover new features.
+	- Updated the .htaccess file to include short tag support.
+
+	FEATURES:
+	- New resize buttons on paint screens allow applets to be bigger than the screen.
+	- Admins may now edit member profiles and avatars via the Modify Permissions menu, and the profile viewer.
+	- Profile option to hide e-mail.
+	- Profile option to disable smilies.
+	- New logging system tracks system/admin/member activity, including deletes, edits, bumps, archives, and more.
+	- Registration form now enforces age declaration.
+	- Minimum age for adult browsing is now adjustable in hacks.php file.  Default is still 18.
+	- Registrations may now be rejected without sending rejection e-mail (anti-spam measure).
+
+=====================================================================
+v1.3.11 - January 2, 2008
+
+	NOTES:
+	- "Modders" don't have to update to the new header.php or footer.php.
+
+	CHANGES:
+	- Adjusted orphaned file cleanup in updater for better accuracy with JPEGs.
+	- Forced registration will now login properly before redirecting to profile editor.
+	- "Time invested" on upload screen now allows values higher than just 3 hours (bug).
+	- Updated credits in footer to correct a spelling error.
+	- Corrected some variable scope issues with noteBBS.js.
+	- 1.3.8b: header.php now uses updated JavaScript <script> tag.
+	- Diagnostics page no longer shows overwrite order, as overwrites are obsolete.
+	- Fixed ampersand spelling error in edit_avatar.php.
+	- Fixed issue with avatars not uploading if height is equal to maximum value.
+
+=====================================================================
+v1.3.10 - September 28, 2007
+
+	CHANGES:
+	- Updated installer and updater to be MySQL strict compatible.
+
+=====================================================================
+v1.3.9 - September 1, 2007
+
+	CHANGES:
+	- Updater now updates to v1.1.0 correctly, which used to cause some issues when updating really old versions of Wacintaki.
+	- Updater now works correctly when upgrading from Wax 5.6.0 (versions of Wax prior to 5.6.0 worked fine).
+	- Removing a database with the installer will no longer complain about missing tables.
+	- Fixed updater using JPGs when a PNG is available.
+
+=====================================================================
+v1.3.8 - July 29, 2007
+
+	- Hotfix 10/17/07 - CPanel changes will no longer drop the registration e-mail.
+
+	CHANGES:
+	- Comment screen disabled when accessed directly.
+	- Deleting pictures will no longer change the picture count (image caching issue).
+	- Members may now toggle the adult flag on their own pictures (yes, this was an oversight).
+	- Animation filesize limit now works properly.
+	- Minor search changes to memberlist.
+	- Adjusted max upload sizes for pictures and animations in control panel.
+	- Changing canvas size in PaintBBS will no longer redirect to NoteBBS.
+	- Updated the optional .htaccess file to handle more server issues.
+	- Added wrappers for setcookie().
+	- Added wrapper for mail() to resolve PHP mail return issue.
+	- New "w_gpc()" function filters GPC better and obsoletes "slashit()".
+	- Fixed possible HTML encoding issue with error.php.
+	- Unified animation viewing code.
+	- Adjusted thumbnail size cutoff (mostly to handle badly compressed uploads).
+	- Fixed typo in unfinished pictures notification (upload.php).
+	- Cleaned up thumbnail logic in index.php and fixed a few flow problems.
+	- Fixed some untranslated text in functions.php.
+	- Fixed thumbnail usage issue with comment.php.
+	- Fixed an HTML ampersand and a syntax error in index.php.
+	- Cleaned up CGI pass-throughs when commenting ("a_match" now works properly).
+	- Fixed JavaScript that was not typed/html-encoded properly.
+	- Fixed problem with mass mails not sending when only super-admins have been selected.
+	- Removed MySQL info from control panel.  Why it was ever there, I have no clue.  Use the MySQL tool in the documentation folder, instead.
+	- Simplified installer to use mostly defaults, and highlight permanent information that cannot be changed in the cpanel.
+	- Changed error reporting in edit_avatar.php.
+	- Removed some unused value tags from the installer (undefined index errors).
+	- Cleaned up variable usage to silence error reporting notices.
+	- Fixed picture recovery printing "Edited by" rather than "Edited on" when recovering own pictures.
+	- Fixed short open tag detection code for servers with ini_get() disabled.
+	- Verification code for registration now encoded properly when sent through e-mail.
+	- Error now returned to applets on image size failure.
+	- Closed several XSS attacks.
+	- Better filtering of integer/code values passed through CGI.
+	- Better error handling regarding page numbers and other navigation.
+	- Issue with userflag corruption when submitting pictures and Auto Immunity is on.
+	- Changed SQL resources in header.php to reduce naming conflicts.
+
+	FEATURES:
+	- Draw times are now shown as hours, minutes, and seconds.
+	- Option in ShiPainter to import canvas instead of animation (solves corrupt animation problems when retouching).
+	- New hacks setting for cookie domains.
+	- New hacks setting for date formats.
+	- New hacks setting to use CSS instead of size approximation for applet area (use with caution).
+
+=====================================================================
+v1.3.7 - May 21, 2007
+
+	CHANGES:
+	- Changed method of collecting POST data from applets for better compatibility.
+	- Fixed problem with some old admin flags not being set.
+	- Fixed a few spelling errors in the English language file.
+	- Fixed escaped username issue when replying to mailbox messages.
+	- Database closes properly on functions.php error.
+	- Usernames with slashes show properly in modflags.php
+	- Fixed issue with some escape codes in notice/banner.
+	- Fixed issue with non-default language being selected when people register.
+	- Semi-fixed issue with filesize not being reported if an avatar is too large.
+	- Corrected an issue where the paint saving routines may be included twice.
+
+	FEATURES:
+	- Humanity test for registration.
+	- Humanity test for guest posting.  May be turned off in control panel.
+	- Better language support, UTF-8 should work on more browsers.
+	- New Chinese Simplified language pack provided by Wing on the NineChime forum.
+
+=====================================================================
+v1.3.6 - December 28, 2006
+
+	NOTES:
+	- Updated hacks file.  v1.2.0 hacks file is still valid.
+
+	CHANGES:
+	- Changed language usage in applet data handler scripts.  Errors were not being properly transmitted to the applets, possibly causing them to forward to the comment screen when an error occurs.
+	- Control panel will now correctly show default template and language in drop-down menu.
+	- Changed file error reporting to help prevent lost picture saves.
+	- New hacks.php setting to override DNS host traces, which may cause serious delays on some servers.
+	- Some cleanup to allow more consistency and code sharing with Wax Poteto.
+	- Changed SQL password handling in cpanel, so wrong passwords are unlikely (web browsers remember and sometimes confuse passwords).
+	- Revised ban screen for low bandwidth.  None of the header menus work, anyway!
+
+	FEATURES:
+	- Diagnostics page accessible from admin menu.
+
+=====================================================================
+v1.3.5 - October 25, 2006
+
+	- Hotfix 10/30/06 - Changed word "porn" in installer and cpanel so board doesn't conflict with some server anti-spam filters.
+
+	CHANGES:
+	- Fixed registered globals issue with "Send To" in mailbox.
+	- Fixed registered globals issue with password recovery.
+	- Added more HTML filtering.
+	- Updated documentation (troubleshooting) to include info on servers with word filters.
+	- Made minor change to installer to help avoid word filter problem.
+	- Fixed registration auto-delete to handle more illegal characters.
+	- Fixed installer so "bytes" is printed after field in thumbnail section.
+	- Fixed a few unstyled text boxes (control panel, registration).
+	- PaintBBS and ShiPainter gradation feature corrected (green value set wrong).
+
+	FEATURES:
+	- Installer now handles database connection issues better.
+	- New tool in documentation folder to change/test database information (fixdb.php).
+
+=====================================================================
+v1.3.4 - September 10, 2006
+
+	NOTES:
+	- If you've made a mod of Wacintaki 1.3.3, the new anti-spam code is in hacks.php (just copy the file), and functions.php (near "// Comment Post")
+
+	CHANGES:
+	- Finally fixed updater so it properly records filetypes when upgrading from OekakiPoteto.
+
+	FEATURES:
+	- Language support!  Big thanks to Kevin (http://3eye.ws/blog/) at the NineChime forum for the new framework.
+	- New language:  Chinese (Big5 encoding), by Kevin
+	- Another anti-spam measure:  link counter when guests post comments.
+	- Hacks.php update to define how many links are allowed in guest posts.
+	- Optional drop-down menus for page numbers.  Enable in hacks.php file.
+
+=====================================================================
+v1.3.3 - July 10, 2006
+
+	CHANGES:
+	- Fixed problem with Safety Saves not getting posted as new pictures (not on page 1).
+	- "Edit Pics" menu now shows index view of all your pictures.  ldelpics.php removed.
+	- Profile editor now strips out some HTML for security reasons.
+	- Registration no longer tracks hosts and IPs (tracking is useless until comments are made).
+	- Updated installer instructions for database table prefixes.
+	- "Regular" delete in mailread.php fixed.  I never even noticed that link before.  ;)
+	- Yet another change to ignore corrupt cookies (boot.php).
+
+	FEATURES:
+	- Picture recovery (safety saves) now show times and animations.
+	- Owners may set multiple safety saves per artist in hacks.php file.
+
+=====================================================================
+v1.3.2 - June 19, 2006
+
+	NOTES:
+	- If you've made a mod of Wacintaki 1.3.1, you may safely ignore header.php and mailsend.php.
+
+	CHANGES:
+	- Yet another anti-spam technique (timeout-based).  This one should work much better for spam bots that *don't* try to post links.
+	- "Forced" approval will no longer send out registration e-mails.
+	- Fixed UTF-8 encoding issue with new PaintBBS/ShiPainter headers (people could not submit pictures).
+	- Fixed problem with NoteBBS Gradation feature not allowing certain values to be changed.
+	- Finally fixed text boxes going off the screen in Internet Explorer when sending mail.
+
+	FEATURES:
+	- Finally added delete checkboxes for mailbox messages, and page numbers.  The mailbox should be much easier to manage, now.
+	- Unread mailbox messages are now printed in bold text.
+	- Re-introduced locations to "Online" list.  Now shows "Board" only if cookie hack is being used for multiple boards (set this in hacks.php).
+
+=====================================================================
+v1.3.1 - May 20, 2006
+
+	CHANGES:
+	- Fixed problem with retouch not importing pictures on some servers (registered global issue).
+	- Fixed infinite redirect problem if database doesn't connect correctly.
+	- Lame fix for recent and annoying Wordpress spambot.
+	- whosonline.php now redirects after 60 seconds, not 15.
+	- "new_chat" officially removed.  Too many standards-compliance and JavaScript issues.
+
+=====================================================================
+v1.3.0 - May 1, 2006
+
+	Talk about a MAYDAY!
+
+	CHANGES:
+	- New hacks.php file to filter PHP code out of resource files.  Compatible with 1.2.0 and up.
+	- Finally fixed picture sorting around post dates rather than ID numbers.  Obsoletes bump code and prevents out-of-order deletion of old pictures.
+	- Fixed orphaned images issue on Windows machines with forced thumbnail generation and retouched images that may change format (PNG to JPEG, for example).
+	- Updater will clean up orphaned images.
+	- Reworked file deletion code for UNIX, too, so FTP uploaded pictures will [usually] retouch properly.
+	- Archived pictures are no longer deleted by autokill.
+	- Reworked applet code for more reliable posting, fewer cookie conflicts, and easier mods.
+	- Applets now forward to comment.php, rather than index.php.
+	- It is now optional to send a reason for deleting users (e-mail issues, etc.)
+	- Made profile viewer larger.
+	- Moved Mailbox link in profile viewer to be more visible.
+	- Added "Quick Draw" button to notice editor.  Puts an OekakiBBS-style draw interface in the notice.
+	- Moved unfinished picture detection so Quick Draw type hacks work correctly.
+	- Chat info no longer shows up in profile viewer if empty.
+	- Fixed variable name conflict in profile viewer.
+	- User delete and autokill will no longer leave orphaned pictures and animations (due to new picture sorting system).
+	- Admins may now delete their own pictures without being prompted for a reason.
+	- Fixed comment redirect: now returns to correct page.
+	- Admins may toggle postlock [safety save] status if they feel a picture is incomplete.
+	- Updated Nifty Usage to explain the [url] tag.
+	- Fixed HTML parsing error with param=>name in noteBBS.php.
+	- Fixed another round of MySQL 5 problems with default values (installer, updater, picture saving).
+	- Admins may now edit picture info, not just comments.
+	- Picture recovery will now highlight missing image files.
+	- Added notice to retouch screen that a browser refresh may be required to see edited images.
+	- Comment screen will not work if guest posting is off or picture number is blank (not a security issue).
+	- New smiley system produces fewer false hits ("<:)", if not defined, will not make a smile with "<" in front of it).
+	- Added some tests to installer to check for unwritable files.
+	- Added link to NineChime forum in installer, so people will stop going to suteki.nu.  ;)
+	- Major rework of PaintBBS/ShiPainter code to prevent GET/POST conflicts (proper headers).
+	- Fixed JavaScript error with NoteBBS palette gradation.  It works, but not very well.  ;)
+	- Added link to JTablet on the FAQ.  Adds pressure sensitivity to ShiPainter with a compatible art tablet.
+	- Added Readme files for the Shi-Chan Java applets, PaintBBS and ShiPainter.  About time, too.
+
+	FEATURES:
+	- Avatars!  Must be enabled in control panel.
+	- Avatars may be on posts only, or every comment.
+	- Safety saves!  Must be enabled in control panel.
+	- Configurable auto-delete for unfinished pictures, to save space.
+	- Confirmation for safety saves, and directions on how to resume them.
+	- Configurable smilies.  Edit them in hacks.php (NOT niftytoo.php!)
+	- Members may bump own pictures on retouch.  Must be enabled in control panel.
+	- Passwords (group picture support).  Group pictures are password protected and will overwrite existing posts.
+	- Public pictures (coloring book support).  Public pictures are free to retouch by every member, but edited images will always behave as new posts, leaving the original intact.
+	- Public pictures may be enabled/disabled in control panel, to ease administration.
+	- Public pictures are properly credited to original artist when retouched.
+	- New sort on index for public pictures.  Use a custom index with "sort=8" to make a coloring book archive.
+	- Memberlist now shows active members if autokill is disabled (last 60 days).  This will tell the owner how many accounts will be removed if autokill is set.
+
+=====================================================================
+v1.2.6 - February 20, 2006
+
+	CHANGES:
+	- Fixed member piccount when uploading files (adds to count).
+	- Members can now register with duplicate e-mails (solves a few technical issues).
+	- Upload now recognizes upper-case animation file extensions.
+	- Fixed "double image" retouch issue with ShiPainter.  Unlike PaintBBS, ShiPainter can only accept one type of canvas.
+	- Upload screen will now warn of unfinished pictures.
+	- Minor security fix with registration.
+	- Fixed installer and updater to work properly with MySQL 5.
+	- Updated footer credits.
+	- Upload will not allow OekakiBBS animation uploads if the applet is not present.
+
+=====================================================================
+v1.2.5 - December 11, 2005
+
+	NOTES:
+	- OekakiBBS obsoleted, and is no longer included with Wacintaki.  The applet has issues with newer versions of Java and is unlikely to be updated.  You may delete the "oekakibbs.jar" file to remove support for OekakiBBS.  If you still want it, leave the JAR file in your oekaki folder when updating.
+
+	CHANGES:
+	- Added .htaccess file in docs folder to fix banner ad issue.  Read the manual for more info.
+	- Added smiley buttons to comment page.
+	- Fixed NIftyToo usage when editing first picture comment.
+	- Members are now notified if their registration has been received, and are given directions to check their e-mail or wait for approval.
+	- Fixed problem with forced approval redirecting to the profile editor.
+	- Updated reclaim.php in docs folder.
+	- Added fixtypes.php in docs folder, which rebuilds broken filetypes if a board will not display pictures correctly.
+
+	FEATURES:
+	- Finally updated ShiPainter (to v1.114) and PCHViewer (to v1.23).  No updates to PaintBBS are available at this time.
+
+=====================================================================
+v1.2.4 - October 16, 2005
+
+	CHANGES:
+	- Workaround for Microsoft IIS web server bug where cookies cannot be set with redirect (http://support.microsoft.com/kb/q176113/).
+	- Fixed variable name conflict in functions.php which could prevent mailbox messages from being marked as replied.
+	- Moved basic rules from notice.php to rules.php (a bit garish).
+	- Fixed infinite redirects if MySQL database cannot be selected.
+	- Fixed JPEG disable (in hacks file) for OekakiBBS.
+	- Fixed problem with updater not always creating default banner and rules files.
+	- Password change/recovery now logs members out first, helping to prevent re-login problems.
+	- Changed "Password" to "Retype Password" in pchange.php (password reset).
+	- Moved updater/installer detector to boot.php.
+	- Updated error-handler in thumbnail code so it doesn't blow up when it encounters a corrupt source image.
+
+	FEATURES:
+	- New hacks.php setting to reduce/disable e-mail.  If your webmaster complains about spam, set this to 1.  Set to 2 to disable e-mail.
+	- New template, "Winter-Purple", to substitute OP's "template".
+
+=====================================================================
+v1.2.3 - August 14, 2005
+
+	CHANGES:
+	- Registration will now filter out HTML tags and other illegal content from the art sample URL.
+	- Fixed registered globals problem with password recovery.
+	- Memberlist only links artist searches if more than zero pictures exist.
+	- Better filtering for invalid URLs in memberlist.
+	- Browser cookie life extended from 14 days to 60 days.
+
+	FEATURES:
+	- Memberlist now allows username searches with Join Date and Last Login.
+	- Memberlist now remembers the last "Sort by" choice (finally).
+
+=====================================================================
+v1.2.2 - July 25, 2005
+
+	NOTES:
+	- Updated hacks file.  v1.2.0 hacks file is still valid.
+
+	CHANGES:
+	- Reduced some PHP warnings about undefined variables.
+	- Fixed bad counter for post loop in index.php.
+	- Fixed ban list override not working with some installs of PHP.
+	- "Default" thumbnail view for members should now work properly under all conditions.
+	- Fixed cosmetic issue with Chat menu item.
+	- New hacks option to prevent deletion of pictures via auto-kill.  Disabled by default as another person may re-register as an auto-killed artist.
+	- Artists may now delete their own pictures from the index page instead of Edit Pictures.
+	- "Edited on/by" is now optional when editing comments.
+	- Centered comment windows and made them bigger.
+	- Updater changed to include new config settings.  Update not required from 1.2.0.
+
+	FEATURES:
+	- Smilies!  May be disabled in the control panel, as some rare smiley combinations don't work.
+	- Auto immunity option in cpanel for people who draw pictures.  Prevents pictures from getting lost if an artist doesn't log in for a while.
+	- Installer now tests if templates and resource folders are writable at startup.
+	- Installer now creates the banner, notice, banlist, and rules automatically, preventing accidentally overwritten files.
+
+=====================================================================
+v1.2.1 - July 15, 2005
+
+	CHANGES:
+	- Manual registration fixed so approved members will have flags set properly.
+	- People may now edit their comments from the index page; replaces "Edit Comments" menu item.
+	- Comments now show up properly in edit textbox when changing them.
+	- Editing/deleting comments now redirects to index page.
+	- Admins may now edit comments and picture titles from any member (about time!)
+	- NiftyToo conversion in comment editor fixed.
+
+=====================================================================
+v1.2.0 - June 15, 2005
+
+	NOTES:
+	- Major rewrite of most Wacintaki 1.1.5 files.
+
+	CHANGES:
+	- Lots of little niggling things fixed.
+	- Most startup code moved to "boot.php", including db, config, common, ban, NiftyToo, hacks, language, and template.
+	- Security defines added to most includes.
+	- Administration ranks replace admin flags.
+	- Removed online.php and version.php (moved to boot.php).
+	- Revised version number system, making it easier to keep track of mods.
+	- Converted entire config file to a keyed array and updated config names.
+	- Finally fixed extra space, fclose(), bad file pointer, and blank line issues with banscript.php.
+	- Fixed crash issue with getting hostname from a blank IP in banscript.php.  Also fixes IPv6 issues.
+	- Fixed several values not being URL encoded in index.php.
+	- Extra debug control for ban list, cookies, hacks, installer, and updater.
+	- New detection for installer and updater.
+	- New bad character detection for names and passwords.
+	- Fixed registered global issue with mail send code in functions.php
+	- Username and userpass transmitted via POST automatically overrides cookies.
+	- Fixed picture recovery so members can properly delete their own pictures.
+	- Changed user kill so it deletes up to 3 users per page view (prevents stalls caused by mail() overhead).
+	- Fixed double add_slashes() issue in control panel.
+	- Added warning about OekakiBBS issues with the Java Plugin on draw screen, and updated the FAQ.
+	- Removed HotScripts vote code from the FAQ.
+	- Fixed a lot of unterminated input tags.  I hate those!
+	- Fixed "Delete User" link on profile viewer for super-admins (don't worry, it didn't work, anyway).
+	- Fixed NiftyToo usage for a member's comment in profile viewer.
+	- Finally got rid of "hidden" flags in profile viewer.
+	- Added "small" header to error.php for pop-ups.
+	- Added detection for corrupt file type header in paintsave.php.
+	- New option in hacks.php to turn off lossy PNG compression for Shi-Chan applets.  I never knew they supported this awful "feature".
+	- Save code for PaintBBS/ShiBBS has more error handling to help prevent lost pictures.
+	- Fixed double addslashes() in installer when magic_quotes_gpc is off.
+	- Fixed double quotes in preview title in installer.
+	- New file_unlock() function replaces safe saving, and should stop permission errors when overwriting files on Windows, without bothering UNIX.
+	- Installer now allows blank MySQL passwords, but issues a notice.
+	- Fixed problem with Scaled thumbnail mode not always scaling to the correct size.
+	- Admin upload now uses the admin's name as the default username.
+	- Better paintsave.php reduces likeliness of orphaned files.
+	- Rewrote DOM error reporting in Poteto.js.
+	- Removed expensive favicon.ico test from index.
+	- Removed language translation notice from footer if using English.
+	- Added link for Wacintaki download to FAQ.
+	- Owners can now delete super-admins without having to demote flags first.
+	- Admins are now given automatic immunity and upload flags.
+	- HTML entities (&quot;, for example), will now be preserved when editing the banner, notice, and rules.
+	- PHP Escapes characters (\n, \t, \", etc.) now work correctly with the banner, notice, and rules when magic quotes is off.
+	- Auto-submit for "View" dropdown menu on index page.
+	- Reworked main menus: removed "by Date" for clarity, renamed "Admin" to "My Oekaki", and moved "Edit Profile".
+	- New list-based menu system should make it easier to add new menu items.
+	- Binary safe writing of picture data.
+	- Comment editing now works correctly.
+	- Rewrote noteBBS.js with English directions.
+	- "Import/Export" and English help messages replace Japanese "Load/Save" feature in PaintBBS palette.
+	- Updated installer, updater, and flagrestore.php to new security model.
+	- Added "reclaim.php" to the documentation folder to reclaim write permissions of config files.
+
+	FEATURES:
+	- New versions of ShiPainter (1.080) and PCHViewer (1.15).
+	- Rewrote security system, user flags, membership verification, and input collection.
+	- BBS now supports default templates, allowing admins to more easily change / remove templates.
+	- Memberlist now shows how many total members there are [that meet the search].
+	- Profile now shows total picture count for an artist.
+	- Ability to send mass-mails only to one group of people (Admins, Draw access, etc.)
+	- Mailbox won't add more than one "RE:" on replied messages.
+	- Added JPEG save support to all Shi-Chan applets.  BBS treats all images as archival quality, and sets max filesize based on canvas size and a reasonable compression ratio.
+	- Member picture count is now reduced when pictures are deleted.
+	- Added admin e-mail to installer (most people I know forget it!)
+	- Semi-automatic URL to BBS in installer.
+	- Thumbnail rebuild when you change options; ability to rebuild archived pictures only.
+	- New buttons to add styled containers when writing a notice.  Add a scrollbox with just a click!
+	- Added "reclaim.php" to documentation folder.  Use it to get write permissions back on FTP-uploaded config files.
+	- Auto-rejection for people who do not activate their accounts within 15 days.
+
+=====================================================================
+v1.1.5 - March 15, 2005
+
+	CHANGES:
+	- Cleaned up includes in index page.
+	- Removed "edittimes" cookie.
+	- Fixed version number decoder to return int and not octet with really old version numbers.
+	- Invalid cookies are now automatically removed, instead of setting $OekakiU to a warning message.
+	- Fixed page number bug in ldelpics.  Page count was including, but not printing, unrecovered pictures.
+	- Cleaned up database code in ldelpics, delpics, lcommentdel, delcomment, and recover.
+	- Search by artist now sorts by date, not comment (?!).
+	- Cleaned up some code in the old_chat system.
+	- new_chat will now properly remove old messages so the log doesn't grow infinitely.  Cycle time is 5 days.
+	- old_chat will now delete oldest 10 messages instead of clearing entire chat log. (?!)
+	- Functions.php:  rewrote security system (user flags, variable types) and error-reporting (new functions, encoding)
+	- Streamlined functions.php and removed obsolete administrative picture recovery code.
+	- Redirects for functions.php now work properly with index sorting by artist.
+	- Fixed issue with some thumbnails not being deleted by paintsave.php.
+	- editrules.php now redirects to showrules.php.
+	- Moved function check_write() from common.php to update.php.
+	- Added strip_path() to $okurl to help prevent minor problem with registration.
+
+	FEATURES:
+	- New page numbers on all pages take up less space and are easier to customize (edit the quick_page_numbers() function in common.php).
+	- Draw screen now requires people to recover unfinished pictures before they can draw new ones.
+	- New "Thumb" button on index page toggles a picture's thumbnail.  Use it to enable/disable thumbnail mode for any picture.
+	- Online counter for chat will now work properly with both old and new chat systems.
+	- Config option to show the rules before a person can submit a registration form.  This is off by default as the standard rules are very terse.
+
+=====================================================================
+v1.1.4 - February 27, 2005
+
+	CHANGES:
+	- Added note about layers with animations on draw page.
+	- Finally fixed the paint applets so you can retouch JPEG and GIF uploads.
+	- profile.php will now only show ICQ server info if one is specified.
+	- Experimental support for more than one web page in profile.  Not yet active.
+	- Fixed template / language usage in new_chat system.
+	- Fixed weird "function s() not initialized" and wrong CSS MIME type bugs in new_chat.
+	- Removed footer and other formatting baggage from new_chat.
+	- Fixed some un-classed input tags in draw.php and upload.php.
+	- Fixed duplicate "a" in anchor tag in mailbox.php.
+	- Adjusted minimum thumbnail threshold to 15,000 bytes (from 20,000).
+	- Corrected thumbnail issue with paintsave.php not freeing memory used by source image.
+	- Updated thumbnail error-handling for versions of GDlib that don't support GIF format.
+	- Updated some reference usage in common.php, paintsave.php, and the applet save routines.
+	- Piccount is now reduced if the latest picture is deleted from the BBS.
+	- Adult label now shows below pictures for all users with X flag, instead of just for admins.
+	- Fixed dumb bug with new sort-by-artist not showing any posts.
+	- Finally fixed even dumber bug with bump feature, which caused posts with apostrophes to be lost.
+	- Updated the manuals and corrected some more links.
+	- Added MAX_FILE_UPLOAD identifier to upload script.
+	- Fixed error report typo in banscript.php.
+
+	FEATURES:
+	- Added support for "Screenshot" account.  Register as "Screenshot" to disable thumbnails and admin controls so you can take screenshots of your art and comments.
+	- Added new file "hack.php".  This is a cleaner way to customize the BBS than with the "hack" sections at the top of each script as with 1.1.3, and prevents hacks from being destroyed every time you update.
+	- Control Panel feature to reset all member templates to the default.
+
+=====================================================================
+v1.1.3 - February 7, 2005
+
+	CHANGES:
+	- Adult flag wasn't working right in profile.php.
+	- "URL" field added to adduser.php, and a table bug was fixed.
+	- Admin e-mails are now always shown in their profiles.  Anti-spam technique used.
+	- Finally fixed Marcello's new chat system so names will not be blank.  I forgot to replace "isset()" with "!empty()".
+	- Also, posts in new Marcello's chat system shouldn't overlap, anymore.
+	- Fixed yet another registered globals problem with the installer, making it difficult to install multiple boards.
+	- BBS now removes members from the online list right away if they log out of the board manually.
+	- BBS location now updates immediately (instead of every 15 minutes) when people switch between multiple boards.
+	- Removed "Upload" from global admin menu.  Use the regular upload feature, instead.
+	- Updated directions in register.php so the board owner won't have to deal with all the problems.  :)
+	- Updated registration directions for new members.
+	- Updated the manual, and fixed a few broken quick-links.
+	- Finally, a massive cleanup of the index sorting code.  New page numbers will follow.
+
+	FEATURES:
+	- Memberlist now shows administrators in a separate list from members (only on page 1, to save space).
+	- "View Pending" now shows the number of people waiting for approval.
+	- <blink> tags for View Pending and Mailbox can be edited at the top of header.php.  By default, mailbox will blink when a new message arrives, View Pending will not blink.
+	- Profile now shows *most recent* IP and hostname for users when viewed by admins.  Helpful for banning.
+	- BBS now tests the mail() function for failure, and prints directions if e-mails cannot be sent.
+	- BBS now has a "force" feature for auto-approval if the host server cannot send e-mails.  Use it ONLY if your server's e-mail system isn't working.
+	- Finally, admins can see the IP and hostnames for guests on the index.  It's ugly, though, and will probably change shortly.
+
+=====================================================================
+v1.1.2 - January 18, 2005
+
+	CHANGES:
+	- Check for blank password on new registrations.
+	- Fixed typo in "mailread.php" that caused all the italic text.  It didn't bug me until I found out it was... a bug.  ;)
+	- Made the page numbers a bit smaller in the Banana template.
+	- BBS now properly handles quotes or apostrophes with the BBS title, author name, and canvas preview title.
+	- Security improvements to flag modification.  A complete security rewrite is being planned.
+	- Fixed bug that prevented proper assignment of upload flag for members after applying the v1.1.1 patch.
+	- Fixed another registered globals bug that prevented the deletion of members on some servers.
+
+	FEATURES:
+	- Ability to reset user passwords if they forget them and their e-mails are not working.
+	- New "bump" feature, allowing admins to move an old picture to a new slot without losing comments (as is what happened with the older "Recover Any Pic" feature).
+	- Preliminary changes to "profile.php" which shows last 10 pictures a member has drawn, with thumbnails.
+	- Link from member profile to index page that shows all pictures drawn by that artist.
+
+=====================================================================
+v1.1.1 - December 3, 2004
+
+	CHANGES:
+	- Fixed major security flaw leftover from OekakiPoteto that allowed anyone to become an admin (functions.php).
+	- Revised addusr.php to use default member permissions defined in control panel.  Also rewrote subtext for default permissions for approvals.
+	- Thumbnails now work on the comment screen.
+	- Adult images are now properly blocked on the comment screen.
+	- Rewritten online.php which should be more reliable and prevent "blank" accounts from getting stuck in the online list forever.
+	- If your BBS if for adults only, users are required to declare their age to register.
+
+	FEATURES:
+	- Upload flag for members.  By default, only admins have upload access.
+	- Upload flag is set like a draw flag.  It can be on or off for approvals, and may be granted to only select people.
+	- Option to allow or disallow guests to see pr0n by clicking the placeholder image.
+	- Admin toggle for adult flag on a picture (finally).
+	- Max upload size in control panel (needed since members may be granted upload access).
+
+=====================================================================
+v1.1.0 - November 22, 2004:
+
+	KNOWN ISSUES:
+	- Hotfix 11/26/04 - ShiPainter v1.070 deleted for many drawing/animation compatibility reasons.  Revert back to older v1.060.
+	- Hotfix 12/01/04 - Security fix released in v1.1.1.
+	- Many new config options are works in progress and are not functional.  Don't freak at all those extra things in the config file.  :)
+
+	CHANGES:
+	- Rewritten manual.html to reflect changes in Wacintaki from OekakiPoteto 5.x.
+	- Various resources and tools outlined in new manual.
+	- Updated filetype recognition code when submitting pictures/uploads.
+	- Updated credits in header.php and footer.php.  New web sites for Shi-Cyan and WonderCatStudio.
+	- Updated install directions in readme.txt to reflect new CHMOD numbers.
+	- Fixed "extra blank page" bug in all files that print page numbers.
+	- Fixed problem where an empty URL (ie, spaces) will show that a member has a web page in memberlist.php.
+	- Changed URL field in comment.php to help prevent "http://" from being omitted.
+	- BBS now prints "ShiPainter Pro" on index with datatype 3 (known issue, v1.0.4).
+	- Fixed problem with paintsave.php and JPEG compression causing uploads to be blank.
+	- Replaced regexes to strip zeroes in numbers with integer casts in shiget.php and paintbbsget.php.
+	- Better filetype detection prevents upload of corrupt/invalid images (BMP files, for example).
+	- Fixed minor security issue with uploads, preventing false uploads.
+	- Rewrote much of the SQL error-handling code in functions.php.
+	- It is now optional for admins to specify a reason for deleing a picture (mostly to prevent multiple mailbox messages during database cleanup).
+	- Added trim() function to many data processing routines in functions.php.
+	- Added some extra hyphens (instead of blank space) in memberlist.php to better align fields.
+	- Removed redundant $display settings from non-header files.
+	- Added file prefix for downloads in animation viewers.  I don't know how I missed that.
+	- Added ability to specify drawing time invested in an uploaded drawing.
+	- Replaced adult checkbox with dropbox in upload.php.
+	- Made it optional to print "Uploaded By" when uploading a file.
+	- Fixed pr0n blocking so admins can moderate adult pictures without enabling the adult flag in their profiles (worksafe administration?  ;)
+	- Security fix to prevent people from accessing the chat and mailbox files when they have been disabled.
+	- <DELETED>New version of ShiPainter (1.070).</DELETED>
+	- New version of PaintBBS (2.22_8).
+	- New version of PCH Viewer (1.12).
+	- Archive / Unarchive will now return you to the BBS with the correct sort mode (view by archive).
+
+	FEATURES:
+	- BBS now supports any datatype due to database change which logs image types.  Uploads are still restricted only to admins.
+	- Picture sizes are now in the database, speeding up a lot of code and allowing more dynamic (horizontal/vertical) layouts.
+	- Thumbnail framework, allowing thumbnails of various sizes and filetypes.
+	- Multiple thumbnail modes, each optimized for bandwidth and/or presentation.
+	- Intelligent thumbnail generator decides whether to use a thumbnail at all (support for PNG/JPEG decisions is planned).
+	- Control panel option to allow guests to see pr0n.
+	- Completely updated FAQ (English only).
+	- Custom pr0n image can be specified in control panel.
+	- Ability to disable the mailbox.
+	- Mailbox entries for deleted/killed users are now emptied (receiver only).
+	- Ability to lock threads if commenting gets out of control.
+	- You may now upload animations (with picture data).
+
+	"U-DO-IT":
+	- Template format has been finalized.  In addition to changes in v1.0.4, you must add another few lines to each custom template you have made to allow for thumbnail outlines.  Add this code below the imghover classes (use Banana.php as a reference):
+
+		/* START */
+		.imgthumb {
+			padding: 1px;
+			border-width: 1px;
+			border-color: $link;
+			border-style: solid;
+		}
+		.imgthumb:hover {
+			padding: 1px;
+			border-width: 1px;
+			border-color: $dBackgroundColor;
+			border-style: solid;
+		}
+		/* END */
+
+=====================================================================
+v1.0.4 - September 15, 2004:
+
+	KNOWN ISSUES:
+	- (FIXED: v1.1.0) - BBS prints "ShiPainter" with datatype 3.  This is a legacy feature.
+
+	CHANGES:
+	- Major optimization with index.php concerning animation code.  Picture sizes should only be calculated once, and only for animated pictures.
+	- Fixed PaintBBS/ShiPainter PCH version conflict (known issue, v1.0.2).
+	- Deleted old "PCHView.jar" and "MgLine.zip" from "./".  Now using "shipainter/PCHView.jar".  Future plan to move PCH viewer into its own folder, separating it from ShiPainter.
+	- Fixed repeated "&nbsp;" typo in ldelcomments.php, ldelpics.php, delcomments.php, and delpics.php.  Ouch.
+	- Removed HTML tag terminaters from all HEAD blocks.  These are required in XHTML, but illegal in HTML4.  Ouch #2.
+	- Users and admins can now delete pictures (without confirmation) from recover.php if the pictures are broken, test images, or just crap.  :)
+	- banscript.php: change allows BBS to be run independently of a web server, making testing new/custom code easier.
+	- Added higher timeout for upload script.  This shouldn't be necessary (according to PHP.net), but some servers don't like the default limit of 30 seconds, and it doesn't hurt.
+	- Fixed problem where a blank URL will show that a member has a web page in memberlist.php.
+	- Finished replacing all encapsed constants with strings ("$ref[blah]" to "{$ref['blah']}").
+	- Replaced all deprecated default variables with environment variables ("$REMOTE_ADDR" to "{$_SERVER['REMOTE_ADDR']}", etc.).
+	- Typo in shiBBS.php.  "PaintBBS" changed to "ShiPainter".
+	- Added banner and link to www.Java.com on the FAQ.  Future plan includes a completely new FAQ.
+	- Updated unlink() code in paintsave.php to be much safer on servers with filesys caching issues.
+	- If an art submission is required to register, the BBS will now check that the URL is semi-valid with both JavaScript and in functions.php.
+	- Rewrote some subtexts on the Control Panel for clarity.
+	- Added notice to register.php that users can edit their profile after registering.
+
+	CHANGES (AUTOGLOBALS):
+	- Fixed a major problem with banscript.php that could cause the BBS to completely fail on servers with autoglobals turned off.
+	- Cookie import has been added to all files that use header.php.
+	- Chat page numbers have been fixed.
+
+	FEATURES:
+	- ShiPainter and ShiPainterPro now have different datatypes, allowing people to retouch pictures with their original toolsets.  Future plan includes letting people choose any app/toolset on the fly.
+	- Easy link for downloading animations.  Future plan includes HTML dump to let people view locally or let artists add animations to their web pages.
+	- Added "Empty" option to mailbox, allowing people to purge all their mail (with confirmation).
+
+	"U-DO-IT":
+	- Adjusted some colors and styles for guest names, making comments more readable.  If you've made a custom template for Wacintaki, you'll need to add the following line to your template php file under the "/* Links */" section, and then delete the automatically-generated CSS file:
+
+		/* START */
+		span.nolink { color: $link; }
+		/* END */
+
+=====================================================================
+v1.0.3 (Hotfix) - August 17, 2004:
+
+	CHANGES:
+	- Changed Poteto.js and register.php to alert user about bad characters in usernames and passwords, such as apostrophes, quotes, and symbols like "$" and "*".
+	- Changed functions.php to filter said bad characters from user input.
+
+	FEATURES:
+	- New logging feature for submitted pictures.  Check your PHP log for more information about failed submissions and uploads.  Future plan includes a native log file.
+
+=====================================================================
+v1.0.2 - August 11, 2004:
+
+	KNOWN ISSUES:
+	- (FIXED: v1.0.3) - ShiPainter PCH viewer will not work with all PaintBBS animations.  I'm looking into the problem, but it is mostly a version conflict with the PCH format.  Do not convert all PCH files to the ShiPainter viewer!
+
+	CHANGES:
+	- Added copyright for board owner, shown in metadata.
+	- Fixed problem with draw flag not being set properly with manually approved registrations.
+	- Fixed UNIX server permissions problem when saving pictures by removing old files first (does not apply to Windows servers).
+	- Fixed PHP headers in paintbbsget and shiget to prevent error messages from getting lost.  Errors will now display properly in the applets, preventing corrupt uploads.
+	- Added salvage feature to help prevent lost pictures if the BBS cannot save an image in database.
+	- Adjusted table layout to reduce undesired word wrapping.
+	- Revised some error log messages.
+
+	FEATURES:
+	- None
+
+=====================================================================
+v1.0.1 - August 9, 2004:
+
+	CHANGES:
+	- Corrected infinite loop problem with banscript.php if the ips.txt and hosts.txt files can't be opened.
+	- Updated all version numbers to format: "wac-x.x.x" (previously: "Wacx.x.x").
+	- Fixed issue with uploading files and JPEG support.  You can now upload PNG or JPEG files depending on setting of JPEG compression.
+	- Fixed PaintBBS animations not playing in PCHViewer (ShiPainter was working fine).
+	- Fixed issue with main text color on dark backgrounds.
+	- Revised templates to resolve border style issue.  Header borders were used on infotables.
+	- Converted some old Poteto 5.x templates to work with Wacintaki.
+	- Added some valigns to tables to correct alignment issues with non-CSS browsers.
+	- Added CHMOD detection for folders and files (prevents lost data).
+	- Corrected page navigators on non-index pages to show current page number.
+	- Various cosmetic changes.
+
+	FEATURES:
+	- None
+
+=====================================================================
+v1.0.0 - August 6, 2004:
+
+	NOTES:
+	- Complete rewrite of all Oekaki Poteto 5.1.0a files.
+
+	FEATURES:
+	- Full HTML/CSS compliance
+	- Templates are based on CSS
+	- Banner, rules, and updated chat system
+	- Support for latest versions of PaintBBS and ShiPainter
+	- Reworked Draw interfaces
+	- Canvas size preview
+	- Supports prefix on all image/animation names
+	- E-mails are invisible to unregistered users; less risk of spam
+	- Returns user to last picture after leaving a comment or archiving
+	- (Mostly) unified animation code for all paint applets
+	- Upload support for PNG files (JPEG/GIF support is planned)
+
+	CHANGES:
+	- Delete confirmation when removing a database
+	- Many failsafe additions to install.php and update.php to minimize data loss
+	- Completely rewritten updater to handle a variety of updates and minimize overwrite errors
+	- Automatic removal of install.php and update.php, with confirmation
+	- Fixed update.php to update default templates and languages for all users.
+	- Added notice for admins in addusr.php to minimize deadbeat account approval (people who do not bother to activate their own account)
+	- Automatic apostrophe detection
+	- Total picture count replaces relative picture count
+	- Reworked JavaScript verification for registration
+	- Validated all JavaScript and turned all scripts into external links to reduce bandwidth
+	- Removed JavaScript rollovers and replaced with menus (more flexible for custom design)
+	- Fixed superglobal usage in all PHP files
+	- Replaced all calls to isset() with string tests
+	- Admins can recover pictures if members neglect to do so
+	- Guests cannot see pr0n unless they register (WIP, to be optional)
+	- Disabled adult animations without registering
+	- Link added to www.Java.com
+	- Fixed duplicate OnClick HTML events
+	- Replaced HTML reserved characters with escape characters (& with &amp;)
+	- Fixed url/email/usrpass issues with members.php
+	- Chat interface will only refresh when viewing page 1
+	- Replace calls to mysql_numrows() with mysql_num_rows()
+	- Replaced most encapsed constants with strings ("$ref[blah]" to "{$ref['blah']}")
+	- Fixed usrpass security issue in memberlist.php.  Very harmful!
+	- Fixed SQL escape security issue in memberlist.php
+	- Optimized sort code for page numbers
+	- Optimized SQL queries in index.php
+	- Shows date people registered in pending member list
+	- Shows age of pending members, for approval on an adult-rated BBS.
+	- Added placeholder for blank comments
+	- Fixed End of Line issues with short tags in PHP code
+	- Proper CSS/JavaScript includes to reduce bandwidth
+	- New CSS hover classes for images
+	- Fixed blank "mailto:" if guests do not provide a link
+	- Fixed link to local url if guests do not provide a link to a homepage
+	- Fixed table width problems in Internet Explorer
+	- Fixed font size problems (fonts too small)
+	- Proper DOCTYPE declarations for all pages
+	- Added new directions for automatic registration approval
+	- Proper language charset declaration for all pages
+	- Fixed issue with HTML titles
+	- Reworked draw saving code with new API and filetype auto detection
+	- Fixed redirect issue when leaving comments.  Very odd
+	- Normalized GET/POST modes for functions.php.  Now uses $mode for all GET forms and $action for POST
+	- Moved commonly used code to common.php
+	- Reduced duplicate code, working towards generic database query code
+	- Improved filtering for insecure/illegal user input (registration, comments)
+	- Proper filtering of paths and filenames
+	- Fixed result formatting of all calls to mysql_error()
+	- Fixed all calls to mysql_close()
+	- Moved all customizable files (rules, ban, preview) to 'resource' folder.
+
+	REMOVED:
+	- News (use notice instead)
+	- Template editor (incompatible with new templates)
+	- Online version check (too many conflicts)
+	- Administrative picture recovery (use upload instead)
+	- Public user flags in memberlist (memberlist will show user groups in future)
+
+=====================================================================

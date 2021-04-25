@@ -1,0 +1,14 @@
+# Hopefully, we can enable JAR files on servers that block them.
+# If a host blocks JARs, though, chances are they block .htaccess, too.
+# Only uncomment this if you are having trouble running Java applets!
+#
+#AddType application/java-archive .jar
+
+
+# Banner ads may conflict with applet animation data.
+# These MIME types fix animations.
+# "x-" is interpreted by the W3C as "experimental", or unofficial.
+#
+AddType application/x-pch .pch
+AddType application/x-spch .spch
+AddType application/x-oeb .oeb

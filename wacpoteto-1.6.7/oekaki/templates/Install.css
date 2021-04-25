@@ -1,0 +1,123 @@
+/*
+Template: Install
+Version: 1.5.6 - Last modified 3/9/2011
+
+$bg_color     = '#3d5c99';
+$table_color  = '#9898b3';
+$header_color = '#142f66';
+*/
+
+
+a:link    {color: white; text-decoration: underline;}
+a:visited {color: white; text-decoration: underline;}
+a:active  {color: yellow; text-decoration: underline;}
+a:hover   {color: yellow; text-decoration: underline;}
+
+body {
+	margin: 2em 0 2em 0;
+	color: white;
+	background-color: #3d5c99;
+	font-size: 10pt;
+	font-family: "Arial", "Helvetica", sans-serif;
+}
+hr {
+	display: none;
+}
+form {
+	margin: 0;
+}
+.req {
+	color: #00FF00;
+}
+
+
+#banner {
+	margin: 0 5% 0 5%;
+	background-color: #142f66;
+	font-style: italic;
+	border-width: 0 0 1px 0;
+	border-color: black;
+	border-style: solid;
+}
+#menubar {
+	display: none;
+}
+#options {
+	margin: 0 5% 0 5%;
+	padding: 7px 10px 7px 10px;
+	background-color: #9898b3;
+	font-size: 11pt;
+	border-width: 0 1px 1px 1px;
+	border-color: black;
+	border-style: solid;
+}
+#adminbar {
+
+}
+#contentmain {
+	/* Container for all content on all pages except pop-ups */
+	margin: 0 5% 0 5%;
+}
+
+
+.header {
+	margin: 0;
+	padding: 4px 0 3px 1em;
+	color: white;
+	font-size: 11pt;
+	background-color: #142f66;
+}
+.infotable {
+	/* Simple formatting for generic tables */
+	padding: 1% 5% 1% 5%;
+	color: white;
+	background-color: #9898b3;
+	border-width: 1px;
+	border-color: black;
+	border-style: solid;
+}
+.infomain {
+	/* Style for admin panel tables */
+	width: 100%;
+}
+p.infonote {
+	/* General information at the top of infotables */
+	padding: 1em;
+	border-width: 1px;
+	border-color: white;
+	border-style: solid;
+}
+p.infonote {
+	/* General information at the top of infotables */
+	text-indent: 30pt;
+	text-align: justify;
+	font-weight: bold;
+}
+.infoask {
+	/* Admin panel options */
+	/* NOTE: IE doesn't like percentages! */
+	width: 200px;
+	text-align: right;
+	vertical-align: top;
+	padding-right: 20px;
+	font-size: 11pt;
+}
+.infoenter {
+	/* Admin panel form data */
+	/* NOTE: IE doesn't like percentages! */
+	text-align: left;
+	vertical-align: top;
+	font-size: 10pt;
+}
+p.subtext {
+	text-indent: 0;
+	margin: 0 0 0 1em;
+	font-style: italic;
+	font-size: 10pt;
+}
+
+#footer {
+	font-size: 12pt;
+	font-weight: bold;
+	text-align: center;
+}

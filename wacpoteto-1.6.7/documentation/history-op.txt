@@ -1,0 +1,542 @@
+==============================
+Oekaki Poteto Revision History
+==============================
+v5.1.0a	New Korean language pack thanks to MYMINT! Also, new support fourms are up! http://www.suteki.nu/community.
+		+ language/MYMINT-korean.php
+
+v5.1.0  New year's release! Happy new year for 2003!
+ 	- Hentai-fire and gloomy pack-in templates added
+	- Fixed a bug in the template designer where the button font color cannot be saved
+	- Fixed a serious bug with the update.php. If you've been getting language errors, try running this new update.php
+	- New date formatting (Custom dates haven't been implemented yet)
+	- Fixed some nifty-too bugs
+	- New chat interface by Marcello, but may not work on some servers (for now)
+		+ templates/hentai-fire.php
+		+ templates/gloomy-starshine.php
+		+ templates/flamingo.php
+		+ templates/aoi.php
+		+ niftytoo.php
+		+ tedit.php
+		+ tnew.php
+		+ update.php (if you've been getting language errors)
+
+	If you wish to use the new chat interface, upload the files in the newchat directory to your main OP directory. If you find the chat does not work at all for you (the chat interface is blank), upload chat.php and chatbox.php from the main package.
+
+v5.0.1a	- More language pack fixes; solves a bug where users cannot switch languages in the profile (Thanks Filb)
+	- Language Pack updated to 1.2a	
+	- Profile now displays the user's language pack selection
+	- Users can now search language in member list
+	- German Language Pack available
+		+ editprofile.php
+		+ functions.php
+		+ header.php
+		+ register.php
+		+ delusr.php
+		+ profile.php
+		+ memberlist.php
+		+ /language/english.php
+		+ /language/deutsch-filb.php
+
+v5.0.1  - Language Pack Updates (Thanks to Filb for aiding in debugging the language pack with his translation)
+	- German Language Pack avaiable soon by Filb.
+	- Fixed a retouch issue with paintBBS.
+	- Language Pack upgraded to version 1.2.
+	- Added more support questions and answers to the manual.
+		+ mailbox.php
+		+ mailout.php
+		+ tdesign.php
+		+ cpanel.php
+		+ language/english.php
+		+ noteBBS.php
+		+ noteBBSa.php
+		+ functions.php
+		+ header.php
+
+v5.0.0  - Major release; THANK YOU to all my donors!
+	- Added in language pack support; you can now make your own language file and translate OP in your own language without any hassle!
+	- Added in JPG compression support.
+	- Reworked the automatic user delete
+	- Made the picture time limit more than 1048 mins.
+	- Way too many security fixes to name, including a serious control panel security flaw.
+		+ read manual.html in the /docs, and follow normal installation. All files will have to be replaced. You will NOT have to remove your picture files, directories, or your config.php or dbconn.php (if it asks you to create a directory, and you already have it, skip that step). Instead of the last step, run update.php
+
+v4.3.3  - Last release; feature requests only with donations. I've worked on OP for more than I've originally intended, and it's time for me to move on. OP will remain freeware, and is still free to modify for your own use as long as our credits and a link back to suteki.nu is included somewhere on your site. Watch out for my next program, NoteMine, soon!
+	- Put back in applet resizing for retouching.
+	- Added support for animations with small dimensions (ie icons)
+	- Added mass OPmailing for owners
+	- Added new display option
+	- Added guranteed database insertions when posting pictures
+		+ oekakibbs.php
+		+ oekakibbsa.php
+		+ notebbs.php
+		+ notebbsa.php
+		+ functions.php
+		+ getoekakibbs.php
+		+ paintbbsget.php
+		+ header.php
+		+ massmail.php
+		+ mailread.php
+		+ viewani.php
+		+ viewanio.php
+		+ editprofile.php
+		+ index.php
+		+ update.php
+			- Run update.php
+		
+v4.3.2b - Fixed a read mailbox bug.
+	- Fixed support for wierd usernames in viewing animation.
+		+ mailread.php
+		+ viewani.php
+		+ viewanio.php
+
+v4.3.2a	- Better support for strange characters in usernames, including the usage of Chinese/Japanese/Korean/etc usernames.
+	- chinese translation of OP 4.3.2a available soon.
+		+ functions.php
+		+ chat.php
+		+ index.php
+		+ faq.php
+		+ profile.php
+
+v4.3.2	- Fixed a bug in editpic.php
+	- Added manual picture recovery for admin.
+	- Fixed problem with pictures being overwritten when the picture count recycles.
+	- created utility scripts (read utilities.txt for more info)
+		+ functions.php
+		+ paintbbsget.php
+		+ getoekakibbs.php
+		+ editpic.php
+		+ arecover.php
+		+ header.php
+		+ ldelpics.php
+		+ online.php
+		
+
+v4.3.1	- Fixed a picture display bug with profiles.
+	- User delete now references by ID, so you do not get errors with strange characters in usernames.
+	- Added a delete option for admin on pictures and comments on the main index.
+	- Fixed a bug with users having problems posting pictures when they have spaces in their usernames.
+		+ delusr.php
+		+ functions.php
+		+ noteBBSa.php
+		+ noteBBS.php
+		+ paintBBS.php
+		+ oekakiBBSa.php
+		+ oekakiBBS.php
+		+ index.php
+		+ profile.php
+		+ header.php
+
+v4.3.0  - Simplified NiftyToo, better support for international characters.
+	- Removed the use of a count file to prevent submissions coming in twice at the same time from posting to a mySQL entry.
+	- Added in two new fields to profiles: age and gender
+	- Added /me actions in chat
+	- Added in delete reasons for picture removals.
+	- Fixed a mailbox bug where you cannot see messages in your outbox.
+	- Improved memberlist searches
+	- Improved the picture saving routines; pictures are less likely to drop upon submission.
+	- Fixed serious security exploit where anyone can take an ownership of a picture
+	- Improved picture recovery
+		+ niftytoo.php
+		+ niftyusage.php
+		+ chat.php
+		+ functions.php
+		+ paintBBS.php
+		+ noteBBS.php
+		+ noteBBSa.php
+		+ oekakiBBS.php
+		+ oekakiBBSa.php
+		+ getoekakibbs.php
+		+ paintbbsget.php
+		+ editpic.php
+		+ profile.php
+		+ editprofile.php
+		+ ldelpics.php
+		+ recover.php
+		+ header.php
+		+ index.php
+		+ mailread.php
+		+ memberlist.php
+		+ faq.php
+		+ update.php (NOT upgrade.php)
+			- run update.php
+
+v4.2.1  - Added in password retrival
+	- Added in quick administration in popup profiles
+	- Added in an error code for mail sends.
+	- Added in e-mail form verification.
+	- Re-did the administrative section of the FAQ to popup profiles than emails, and gave a better description of their functions.
+		+ header.php
+
+		+ faq.php
+		+ functions.php
+		+ lostpass.php
+		+ chngpass.php
+		+ mailsend.php
+		+ editprofile.php
+		+ register.php
+
+v4.2.0  - Added mailbox messaging features!
+	- Converted PIC_ID to an integer type
+		+ faq.php
+		+ functions.php
+		+ mailsend.php
+		+ mailread.php
+		+ mailout.php
+		+ mailbox.php
+		+ header.php
+		+ update.php (NOT upgrade.php)
+		+ profile.php
+		- run update.php
+
+v4.1.9a - fixed major bugs in the new registration system for non-pending systems where all flags would get reset to G. Also repaired a security bug where someone can regain their flags after losing it by clicking their email verification link. (thanks Uriel)
+	- removed chat link jiggler (thought it was unnecessary by this version)
+		+ functions.php
+		+ header.php
+
+v4.1.9 - improved who's online
+       - increased the limit for the picture/comment counts
+       - email link verification for non-pending systems
+       - email duplicate checker implemented
+       - Added thumbnails to picture delete (thanks Uriel of www.oekakicentral.com/www.unixdaemons.com)
+		+ online.php
+		+ header.php
+		+ whosonline.php
+		+ faq.php
+		+ delpics.php
+		+ register.php
+		+ functions.php
+		+ update.php (NOT upgrade.php)
+		- run update.php to update your databases.
+
+v4.1.8 - fixed another userkill bug and a user delete bug, and merged chat databases for multiple boards; added in rumbling for chat link when users are present in chat
+		+ faq.php
+		+ button.gif
+		+ functions.php
+		+ chat.php
+		+ header.php
+		+ update.php (NOT upgrade.php)
+		+ online.php
+		- run update.php to convert your chat / online database. if you have multiple boards, you will recieve errors, which is normal.
+
+v4.1.7b - fixed a userkill bug
+		+ header.php
+
+v4.1.7a - fixed a template bug with registration
+		+ functions.php
+
+v4.1.7  - Special thanks to Uriel of unixdaemons.com/oekakicentral.com for providing me special access to test OP on a server thats not suteki.nu; I've managed to find alot of bugs and fix them in this release!
+
+	- Squashed more evil template bugs.
+	- Fixed the control panel not storing prefixes correctly.
+	- *FINALLY* Fixed notices and news having problems with ' and "; added in reparsing for notices
+	
+		+ versionchk.php
+		+ cpanel.php
+		+ editnotice.php
+		+ editnews.php
+		+ functions.php
+
+v4.1.6 	- Fixed OekakiBBS applet not sizing correctly when retouching.
+	- Fixed OekakiBBS animation retouching
+	- Fixed installation problems
+	- Fixed more template bugs
+
+		+ upload ALL .php files excluding announce.php, notice.php
+		- download your config.php from your OP directory and find the line that reads $template, and if the name has .php in it, remove the .php and reupload
+	
+v4.1.5 	- Fixed a major bug with multiple board support.
+	- Fixed template bugs on install
+	- Added back applet resizing
+	- Fixed retouch for editing normal paintBBS
+	- Fixed unicode support; japanese and other languages should now work
+	- Fixed minor niftytoo bugs
+
+		+ upload ALL .php files excluding announce.php, notice.php
+		+ upload PaintBBS.jar in binary mode
+		+ make sure your member/database prefixes are the same as the member prefix of your previous version
+
+
+v4.1.0a - Fixed some template problems with the animation viewing.
+	        + viewani.php
+		+ viewanio.php
+
+v4.1.0	- Added support for multiple boards under one member database. Read readme.txt if you want to know how to run multiple boards under one member account. You will not need this upgrade if you're not planning on using multiple boards. Also, fixed commeting bugs in notice and news with \' and \".
+	
+		+ upload ALL .php files excluding announce.php, notice.php
+		+ run the update.php file to upgrade OP
+		+ delete install.php and update.php
+		+ read the readme.txt section if you are planning on installing multiple boards.
+		
+v4.0.0 	- Major release.
+	- Added improved install.
+	- Added template control panel/designer.
+	- Added Control Panel.
+	- Added Archiving support.
+	- Added manual / automatic user deletions.
+	- Added the ability to search for artist's pictures.
+	- Added individual picture linking.
+	- Added support for OekakiBBS 2.x.
+	- Improved profiles and memberlist.
+	- Fixed minor bugs, such as images getting cut off, background bugs, commenting bugs, etc.
+		+ read upgrade3x.txt for upgrade information from 3.x.
+		+ no sqlupdate.php with this version
+
+v3.5.1a	- Added apostrophes fix: some servers won't let you add in apostrophes. Created a new config.php with 2 modes for stripping apostrophes.
+		+ config.php
+		+ functions.php
+
+v3.5.1	- Added flag modification fix when the Owner loses flags from modify his/her own flags. Run sqlupdate.php to fix flags.
+	- Hacks added by Dodo (www.regretless.com)
+		+ viewani.php - shows filesize of the animation
+
+	- Added Dodo's hacks as a seperate package in OPhacks.zip
+
+v3.5.0	- Added animation support. Introduces a new animation flag, so be sure to enable that for users who want animation.
+	- Fixed some minor errors.
+
+		+ edit the new config.php and upload it.
+
+		+ upload all .php files excluding:
+			- install.php
+			- dbconn.php
+			- count
+			- hosts.txt
+			- ips.txt
+			- news.php
+			- notice.php
+		
+		+ upload the following files in BINARY mode:
+			- MgLine.zip
+			- PCHViewer.jar
+		
+		+ run the sqlupdate.php to update the database
+
+v3.4.4	- Added picture resuming support. You can 're-touch' pictures that you have submitted now.
+		- Added new markup code, niftyToo.
+		- Added notices.
+		- Corrected some minor errors.
+
+		+ upload all .php files excluding:
+			- install.php
+			- config.php
+			- dbconn.php
+			- count
+			- hosts.txt
+			- ips.txt
+			- news.php
+
+		+ chmod notice.php 666
+
+v3.4.1  - fixed an SQL error in the install script that might prevent oekaki from installing on strict mySQL servers. You do not need this upgrade if your OekakiPoteto currently works. Thanks to Koneko who spent time with me debugging it on her uber-strict mySQL server.
+
+v3.4.0	- Major revision 
+	- Eliminated use of PERL scripts to post pictures (thanks to Marcello for the code).
+	
+	Because there are no more PERL scripts to install, OekakiPoteto should be able to be installed on ANY PHP/mySQL enabled server! However, there is one limitation: no OekakiBBS support. A problem with OekakiBBS is that it still relies on the PERL files to post pictures; we feel that it was ok to remove since PaintBBS is more powerful than OekakiBBS at the moment.
+
+	- Read UPGRADE3x.txt for upgrade details. However, it is not necessary to upgrade if your OP currently works.
+
+	- You can now specify the directory within oekakipoteto to store pictures at.
+	- Fixed a small bug with NoteBBS.
+
+
+v3.319a	- Fixed any include errors that may occour when a server's root is not set to the owner's own directory (if you get any failed opening so and so file, try installing this version); for all other users of OekakiPoteto 3.319, you do not need to upgrade if your website does not pose any problems.
+		+ you don't need to update if you use 3.19
+
+v3.319	- URL posting bug fixed.
+		+ functions.php
+
+
+v3.318	- News posting revised (thanks Marc)
+		+ functions.php
+
+v3.314	- Props to Marc on finding bugs in this realease also.
+		- Fixed another background bug.
+		- Fixed username view link in news.
+		- Fixed minor error in add/remove user.
+		+ sqlupdate.php
+		+ addusr.php
+		+ functions.php
+
+v3.311	- Fixed another memberlist bug.
+		- Fixed another background bug (thanks Marc).
+		+ memberlist.php
+		+ news.php
+
+v3.31	- I really owe this upgrade to Marc (http://www.sayunz.com/) since he reported so many bugs and had some cool suggestions ^^.
+	- Fixed more background image display bugs.
+	- Changed filemod.pl without error messages (didn't seem to work anyways).
+	- Fixed another commenting bug when registering.
+	- Updated readme.txt to include the file chmods in case filemod.pl doesn't work.
+	- Added in a comfirmation page when deleting pictures.
+	- Clicking on a username in the member list pops up a window.
+		+ delpics.php
+		+ delconf.php
+		+ functions.php
+		+ ldelpics.php
+		+ versionchk.php
+		+ profile.php
+		+ chatbox.php
+		+ filemod.pl
+		+ memberlist.php
+
+v3.305	- Fixed background image display bug. (thanks Marc)
+	- Fixed database close connection in install.php (shouldn't give any more errors)
+		+ header.php
+		+ install.php (if you're installing a new OekakiPoteto)
+		+ chat.php
+		
+v3.302	- Fixed Online bug.
+		- sqlupdate.php and run it from your browser.
+
+v3.301	- Added in easy SQL upgrades.
+
+v3.30	- Fixed flag modification where only Administrators can remove access.
+	- NEW! Reduced step installation process... no SQL / encryption hassles! Included Option to remove oekakiPoteto databases.
+		+ modflags.php
+
+v3.27	- Added in an announcement system.
+	- Added in version checking.
+	- Fixed memberlist searching
+		+ header.php
+		+ functions.php
+		+ news.php
+		+ editnews.php
+		+ memberlist.php
+		+ online.php
+		+ faq.php
+		+ version.php
+		+ versionchk.php
+		+ announce.php (chmod 666)
+
+
+v3.25	- Possibly fixed Internal Server Error / Post Method Not Allowed / JavaIOException error. Forgot to add in 	joindate statement into sql.txt. (thanks to Izani @ www.arcturus.org) 
+		+ follow step 1 in readme.txt
+		+ If you are getting Unknown column \'joindate\' in \'field list\':
+			- SQL Statement: "ALTER TABLE `oekaki` ADD `joindate` DATE NOT NULL " 		
+
+v3.24	- Fixed serious HTML posting bug where other tags could be used.
+	- Auto HTML: users can just type in a URL without <a href..>
+	- ALL profiles now popup in a seperate window.
+		+ chat.php
+		+ functions.php
+		+ header.php
+
+v3.22 	- Partial support for NoteBBS. Thanks to D[\/]N of www.i-0-i.com for the translation!
+		+ noteBBS.php
+		+ footer.php
+		+ header.php
+		+ online.php
+
+v3.19	- Chat revised to a popup window. CCS support for scrollbars added.
+		+ chat.php
+		+ chatbox.php
+		+ upload the updated v1.1 templates (ie all of them) in the /templates directory
+
+v3.18 	- Included a new version of cgi-lib; this *may* fix those internal server/post errors.
+		+ cgi-lib.pl chmod 644
+
+v3.17	- New chat options; use of inline frames.
+		+ chatbox.php
+		+ chat.php
+		+ header.php
+
+v3.16	- Chat revamped
+		+ chatbox.php
+		+ chatsub.php
+		+ chat.php
+		+ online.php
+
+v3.15	- Fixed error when using a ' when rejecting users.
+	- Added a chat/message box.
+	- Fixed delete bug (was calling a variable used from Oekaki v1.x)
+	- Fixed art url / comments not displayed when adding/removing users.
+	- Fixed background image bug: the background src was pointing to the wrong directory (thanks Navi ^^).
+	- Fixed picture loss (you shouldn't have to use picture recovery anymore!)
+	- Fixed a serious security hole where other people can be other users through a simple query string. (thanks Marcello ^^).
+	- Added in a mySQL chat module.
+	- Added in a member list.
+	- Completely fixed 'Who's Online'.
+	- Added in locations in 'Who's Online'.
+		+ Just upload all the php files, including the templates; *make sure you configure the new config.php* and not to overwrite your existing dbconn.php
+		*MOST IMPORTANT*
+		+ SQL Statement: "ALTER TABLE `oekakionline` ADD UNIQUE(`onlineusr`)"
+		+ SQL Statement: "ALTER TABLE `oekaki` ADD `joindate` DATE NOT NULL "
+		+ SQL Statement: 
+
+CREATE TABLE oekakichat (
+  ChatID int(11) NOT NULL auto_increment,
+  usrname varchar(255) NOT NULL default '',
+  comment tinyblob NOT NULL,
+  posttime timestamp(14) NOT NULL,
+  hostname blob NOT NULL,
+  email varchar(255) default NULL,
+  url blob,
+  IP tinyblob NOT NULL,
+  postname varchar(50) NOT NULL default '',
+  PRIMARY KEY  (ChatID)
+) TYPE=MyISAM;
+
+v3.01 - Updated the Who's Online code to prevent multiple instances
+		+ online.php
+
+v3.0 - See readme.txt for details on the new features.
+		+ Read readme.txt and follow the entire step 1
+			- Your existing OekakiPoteto database will be used; you still will need to edit dbconn.php and config.php to properly connect to the database.
+    		 *MOST IMPORTANT*
+     		+ SQL Statement: "ALTER TABLE oekakidta ADD edittime smallint(5) unsigned default NULL"
+		+ SQL Statement: 
+
+CREATE TABLE oekakionline (
+  OID int(10) NOT NULL auto_increment,
+  onlineusr varchar(100) NOT NULL default '',
+  onlinetime timestamp(14) NOT NULL,
+  onlineIP tinyblob NOT NULL,
+  PRIMARY KEY  (OID)
+) TYPE=MyISAM;
+
+
+v1.50 - "Reason for Rejection" added when rejecting pending members.
+      - Added in Adult Flags for members to block out adult-orientated pictures
+	(you're best off just uploading all the .php files with the exception of the dbconn.php file)
+		+ index.php
+		+ login.php
+		+ logout.php
+		+ header.php
+		+ adminf.php
+		+ addusr.php
+		+ comment.php
+		+ oekaki.php
+		+ edicpic.php
+		+ editusr.php
+		+ modusr.php
+		+ recover.php
+		+ pr0n.png
+		*MOST IMPORTANT*
+		+ SQL Statement: "ALTER TABLE oekakidta ADD adult TINYINT (2) DEFAULT '0' not null"		
+
+v1.30 - Added in a setting to display a number of pictures per page.
+		+ in dbconn.php add in the line after $pstore = "";:
+			//Number of Pics to display a page
+			$ppage = "15";
+		+ oekaki.php
+
+v1.23 - Fixed a bug in commentdel.php that only displayed comments from posters of pictures.
+		+ commentdel.php
+
+v1.21 - Fixed a registration problem when a comment had a single quote (') in it.
+		+ adminf.php
+
+v1.20 - Added paging, along with speed optimizations to commentdel.php and delpics.php
+      - More informative e-mail registration.
+		+ adminf.php	
+		+ commentdel.php
+		+ delpics.php
+		
+v1.10 - Recoded the oekaki.php file to optimize output speed
+      - Included banning routines into register.php
+		+ oekaki.php
+		+ register.php
+
+v1.00 - First stable realease
+		+ No Upgrades
