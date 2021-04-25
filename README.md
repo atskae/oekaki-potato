@@ -28,7 +28,7 @@ This will start a web server listening at `localhost:8000`.
 6. Click on the `CheerpJ` Chrome Extension icon at the top right (icon should be orange)
     * `Applets detected` should be enabled (orange icon).
 7. Click `Run Applets`. You should see the (nostalgic) Shi-painter Pro app!
-[![Run Shi-painter Pro in Chrome](./doc/img/shi-painter-pro_in_chrome.png)]
+[!Run Shi-painter Pro in Chrome](./doc/img/shi-painter-pro_in_chrome.png)
 
 ## Links
 * [NineChime](http://www.ninechime.com/products/)
