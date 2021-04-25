@@ -20,4 +20,7 @@ This will start a web server listening at `localhost:8000`.
 ![Open CheerpJ extension](../img/cheerpj_run_applets.png)
 
 7. Click `Run Applets`. You should see the (nostalgic) Shi-painter Pro app!
-![Run Shi-painter Pro in Chrome](../img/shi-painter-pro_in_chrome.png)
+![Run Shi-painter Pro in Chrome](..img/shi-painter-pro_in_chrome.png)
+
+## Sources
+* [しぃペインターをGoogle Chromeで使う](https://note.com/satopian/n/n38e9e269d329#TPSao)
