@@ -11,3 +11,7 @@ My first goal is to learn how these Oekaki boards worked... and then figure out 
 ## Links
 * [NineChime](http://www.ninechime.com/products/)
     * This is where middle-school me downloaded some unverifed software and uploaded those files to some sketchy free web server to create an Oekaki board
+
+## HTML5 Ports
+* [ChickenPaint](https://github.com/thenickdude/chickenpaint): ChibiPaint
+* [PaintBBS](https://github.com/funige/neo)
