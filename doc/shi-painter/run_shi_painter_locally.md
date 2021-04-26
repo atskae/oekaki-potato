@@ -4,7 +4,7 @@
     * This allows you to run Java applets without installing Java (cray-cray!)
     * Only works with a web server (can't just open an HTML file). More on this later.
 2. Download [`sptr1114.zip`](http://hp.vector.co.jp/authors/VA016309/spainter/index_en.html) and extract the `.zip` file.
-    * Or go to `sptr114/` directory in a local copy of this repository
+    * Or go to `sptr1114/` directory in a local copy of this repository
 3. Download Python so that we can start a web server. More on this [here](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server#running_a_simple_local_http_server).
 4. Go to `sptr1114/` and start a web server (in Terminal):
 ```
