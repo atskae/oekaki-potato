@@ -1,9 +1,10 @@
 # Shi-Painter Pro HTML5 Port
 
 ## Files
+* `index.html` is a modified version of `sptr1114/spainter_pro.html`
 * `spainter_all.jar` is a copy of `wacpoteto-1.6.7/oekaki/spainter_all.jar`
     * With the `_all` version of this file we don't need to worry about passing in that extra `pro.zip` or compiling that file as a dependency -whew-
-* `index.html` is a modified version of `sptr1114/spainter_pro.html`
+* `sp.js.jar` is a copy of `sptr1114/sp.js.jar`
 
 ## Compile .jar to Javascript
 1. Download Java to Javascript compiler [CheerpJ](https://leaningtech.com/cheerpj/) (the same developers who made the [Chrome extension](https://chrome.google.com/webstore/detail/cheerpj-applet-runner/bbmolahhldcbngedljfadjlognfaaein/related)).
